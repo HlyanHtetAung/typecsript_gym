@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.open_dropdown {
+  overflow: hidden;
+  pointer-events: none;
+  max-height: 0px;
+  transition: max-height 300ms ease-in-out;
+}
+
+.open_dropdown.active {
+  overflow: visible;
+  pointer-events: visible;
+  max-height: 3000px;
+  transition: max-height 300ms ease-in-out;
+}

@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import TimeSelector from "../components/TimeSelector";
 import dayjs, { Dayjs } from "dayjs";
 
+import { MdOutlineDelete } from "react-icons/md";
+
 interface objType {
   selectedCategory: {};
   selectedTrainer: {};
@@ -204,7 +206,6 @@ const CreateClass = ({ edit }: createClassProps) => {
     setFromTime(null);
     setToTime(null);
   };
-  console.log(classData);
   // for Edit class form
   useEffect(() => {
     if (edit)
@@ -245,9 +246,12 @@ const CreateClass = ({ edit }: createClassProps) => {
         ],
       });
   }, []);
-  console.log(currentDay);
 
-  console.log("filter Result");
+  const createClassHandle = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    console.log(classData);
+  };
 
   return (
     <div className="w-full">
@@ -299,7 +303,11 @@ const CreateClass = ({ edit }: createClassProps) => {
           {classData.selectedDateTime.map((date) => (
             <h2
               onClick={() => setCurrentDay(date.dateDay)}
-              className="flex items-center justify-center flex-1 py-[7px] px-[30px] rounded-md bg-secondary cursor-pointer text-white font-poppins font-normal"
+              className={`${
+                currentDay === date.dateDay && "bg-secondary text-white"
+              } flex items-center justify-center flex-1 py-[7px] px-[30px] 
+              rounded-md cursor-pointer text-secondary font-poppins font-normal 
+              hover:bg-secondary hover:text-white`}
               key={date.dateDay}
             >
               {date.dateDay}
@@ -316,15 +324,26 @@ const CreateClass = ({ edit }: createClassProps) => {
             Add
           </button>
         </div>
-        <div className="min-h-[200px] bg-gray-200 rounded-md">
+        <div className="min-h-[200px] bg-gray-200 rounded-md p-3 flex flex-col gap-2">
           {classData.selectedDateTime
             .filter((selectData) => selectData.dateDay === currentDay)[0]
             .selectedTime.map((selTime) => (
-              <p>
-                {selTime.startTime} -- {selTime.endTime}
-              </p>
+              <div className="flex items-center justify-between bg-white px-[10px] py-[15px] rounded-lg">
+                <p className="font-poppins text-[16px]">
+                  {selTime.startTime} to {selTime.endTime}
+                </p>
+                <MdOutlineDelete
+                  className={`w-[25px] h-[25px] text-red-400 cursor-pointer hover:text-red-900 duration-300`}
+                />
+              </div>
             ))}
         </div>
+        <button
+          onClick={(e) => createClassHandle(e)}
+          className="bg-primary py-[10px] rounded-md font-poppins font-medium text-secondary"
+        >
+          Create Class
+        </button>
       </div>
     </div>
   );

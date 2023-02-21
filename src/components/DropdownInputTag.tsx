@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { CiSearch } from "react-icons/ci";
+import { STYLES } from "../styles";
 
 type DropdownInputTagProps = {
   initialLetter: string;
@@ -89,7 +90,7 @@ const DropdownInputTag = ({
             : initialLetter}
         </h3>
         <div ref={dropdownIconRef}>
-          <RiArrowDropDownLine className="w-[30px] h-[30px] text-white" />
+          <RiArrowDropDownLine className={`${STYLES.iconStyle} text-white`} />
         </div>
       </div>
       <div

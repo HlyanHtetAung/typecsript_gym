@@ -10,7 +10,7 @@ function App() {
         <Route path="/">
           <Route index element={<Home />} />\
           <Route path="createClass" element={<CreateClass />} />
-          <Route path="editClass/:userId" element={<CreateClass edit />} />
+          <Route path="editClass" element={<CreateClass edit />} />
         </Route>
       </Routes>
     </div>

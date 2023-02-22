@@ -7,9 +7,11 @@ type DropdownInputTagProps = {
   initialLetter: string;
   dropdownValues: (propertyName: string, value: string) => any;
   objPropertyName: string;
-  selectedDropdownValue: any;
+  selectedDropdownValue?: any;
   selectHandle: (selected: {}) => void;
   selectedLabel: string;
+  showMultipleLables?: string[];
+  // showMutipleLabels is used for when we want to show mutiple lables in our dropdown box
 };
 
 const DropdownInputTag = ({
@@ -19,6 +21,7 @@ const DropdownInputTag = ({
   selectedDropdownValue,
   selectHandle,
   selectedLabel,
+  showMultipleLables,
 }: DropdownInputTagProps) => {
   const [openDropdown, setOpenDropdown] = useState<Boolean>(false);
   const [searchInput, setSearchInput] = useState<string>("");
@@ -71,28 +74,63 @@ const DropdownInputTag = ({
       {Object.keys(selectedDropdownValue).length > 0 ? (
         <p className="font-normal font-poppins pb-[5px]">{selectedLabel}</p>
       ) : null}
-      <div
-        ref={dropdownHeaderWrapperRef}
-        className={`flex items-center justify-between py-[10px] px-[10px]  ${
-          openDropdown ? "rounded-tl-md rounded-tr-md" : "rounded-md"
-        } ${
-          Object.keys(selectedDropdownValue).length > 0
-            ? "bg-green-600"
-            : "bg-secondary"
-        }`}
-      >
-        <h3
-          className="font-poppins font-semibold text-white"
-          ref={dropdownHeaderRef}
+      {showMultipleLables ? (
+        <div
+          ref={dropdownHeaderWrapperRef}
+          className={`flex items-center justify-between py-[10px] px-[10px]  ${
+            openDropdown ? "rounded-tl-md rounded-tr-md" : "rounded-md"
+          } ${
+            Object.keys(selectedDropdownValue).length > 0
+              ? "bg-green-600"
+              : "bg-secondary"
+          }`}
         >
-          {Object.keys(selectedDropdownValue).length > 0
-            ? selectedDropdownValue[objPropertyName]
-            : initialLetter}
-        </h3>
-        <div ref={dropdownIconRef}>
-          <RiArrowDropDownLine className={`${STYLES.iconStyle} text-white`} />
+          {Object.keys(selectedDropdownValue).length > 0 ? (
+            showMultipleLables.map((lbl) => (
+              <h3
+                className="font-poppins font-semibold text-white"
+                ref={dropdownHeaderRef}
+              >
+                {selectedDropdownValue[lbl]}
+              </h3>
+            ))
+          ) : (
+            <h3
+              className="font-poppins font-semibold text-white"
+              ref={dropdownHeaderRef}
+            >
+              {initialLetter}
+            </h3>
+          )}
+          <div ref={dropdownIconRef}>
+            <RiArrowDropDownLine className={`${STYLES.iconStyle} text-white`} />
+          </div>
         </div>
-      </div>
+      ) : (
+        <div
+          ref={dropdownHeaderWrapperRef}
+          className={`flex items-center justify-between py-[10px] px-[10px]  ${
+            openDropdown ? "rounded-tl-md rounded-tr-md" : "rounded-md"
+          } ${
+            Object.keys(selectedDropdownValue).length > 0
+              ? "bg-green-600"
+              : "bg-secondary"
+          }`}
+        >
+          <h3
+            className="font-poppins font-semibold text-white"
+            ref={dropdownHeaderRef}
+          >
+            {Object.keys(selectedDropdownValue).length > 0
+              ? selectedDropdownValue[objPropertyName]
+              : initialLetter}
+          </h3>
+          <div ref={dropdownIconRef}>
+            <RiArrowDropDownLine className={`${STYLES.iconStyle} text-white`} />
+          </div>
+        </div>
+      )}
+
       <div
         className={`${
           !openDropdown ? "open_dropdown" : "open_dropdown active"
@@ -111,25 +149,47 @@ const DropdownInputTag = ({
           />
         </div>
         <ul className="flex flex-col bg-gray-200" ref={dropdownValueRef}>
-          {dropdownValues(objPropertyName, searchInput).map(
-            (ddValue: any, index: any) => (
-              <li
-                onClick={() => {
-                  selectHandle(ddValue);
-                  setSearchInput("");
-                }}
-                key={ddValue.id}
-                className={`${
-                  index ===
-                  dropdownValues(objPropertyName, searchInput).length - 1
-                    ? null
-                    : "border-b border-gray-300"
-                } px-[20px] py-[10px] hover:bg-primary font-poppins font-normal text-normal`}
-              >
-                {ddValue[objPropertyName]}
-              </li>
-            )
-          )}
+          {showMultipleLables
+            ? dropdownValues(objPropertyName, searchInput).map(
+                (ddValue: any, index: any) => (
+                  <li
+                    onClick={() => {
+                      selectHandle(ddValue);
+                      setSearchInput("");
+                    }}
+                    key={ddValue.id}
+                    className={`${
+                      index ===
+                      dropdownValues(objPropertyName, searchInput).length - 1
+                        ? null
+                        : "border-b border-gray-300"
+                    } flex items-center justify-between px-[20px] py-[10px] hover:bg-primary font-poppins font-normal text-normal`}
+                  >
+                    {showMultipleLables.map((lbl, index) => (
+                      <p key={index}>{ddValue[lbl]}</p>
+                    ))}
+                  </li>
+                )
+              )
+            : dropdownValues(objPropertyName, searchInput).map(
+                (ddValue: any, index: any) => (
+                  <li
+                    onClick={() => {
+                      selectHandle(ddValue);
+                      setSearchInput("");
+                    }}
+                    key={ddValue.id}
+                    className={`${
+                      index ===
+                      dropdownValues(objPropertyName, searchInput).length - 1
+                        ? null
+                        : "border-b border-gray-300"
+                    } px-[20px] py-[10px] hover:bg-primary font-poppins font-normal text-normal`}
+                  >
+                    {ddValue[objPropertyName]}
+                  </li>
+                )
+              )}
         </ul>
       </div>
     </div>

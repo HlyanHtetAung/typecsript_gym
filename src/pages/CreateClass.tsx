@@ -1,5 +1,9 @@
 import { STYLES } from "../styles";
-import { useGetTrainers, useGetCategories } from "../customHooks/index";
+import {
+  useGetTrainers,
+  useGetCategories,
+  useGetPackages,
+} from "../customHooks/index";
 import DropdownInputTag from "../components/DropdownInputTag";
 import { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -9,10 +13,8 @@ import dayjs, { Dayjs } from "dayjs";
 import { MdOutlineDelete } from "react-icons/md";
 
 interface objType {
-  selectedCategory: {};
+  selectedPackage: {};
   selectedTrainer: {};
-  selectedClassType: {};
-  selectedGroupType: {};
   selectedDateTime: [
     {
       dateDay: string;
@@ -46,10 +48,8 @@ interface objType {
 }
 
 const INITIAL_CLASS_DATA: objType = {
-  selectedCategory: {},
+  selectedPackage: {},
   selectedTrainer: {},
-  selectedClassType: {},
-  selectedGroupType: {},
   selectedDateTime: [
     {
       dateDay: "Sun",
@@ -94,7 +94,7 @@ type createClassProps = {
 const CreateClass = ({ edit }: createClassProps) => {
   const param = useParams();
   console.log(param);
-  const { categories } = useGetCategories();
+  const { packages } = useGetPackages();
   const { trainers } = useGetTrainers();
   const [fromTime, setFromTime] = useState<Dayjs | null>(null);
   const [toTime, setToTime] = useState<Dayjs | null>(null);
@@ -112,13 +112,6 @@ const CreateClass = ({ edit }: createClassProps) => {
 
   const [classData, setClassData] = useState<objType>(INITIAL_CLASS_DATA);
 
-  const selectCategoryHandle = useCallback(
-    (selected: {}) => {
-      setClassData((prev) => ({ ...prev, selectedCategory: selected }));
-    },
-    [classData.selectedCategory]
-  );
-
   const selectTrainerHandle = useCallback(
     (selected: {}) => {
       setClassData((prev) => ({ ...prev, selectedTrainer: selected }));
@@ -126,23 +119,16 @@ const CreateClass = ({ edit }: createClassProps) => {
     [classData.selectedTrainer]
   );
 
-  const selectClassTypeHandle = useCallback(
+  const selectPackageHandle = useCallback(
     (selected: {}) => {
-      setClassData((prev) => ({ ...prev, selectedClassType: selected }));
+      setClassData((prev) => ({ ...prev, selectedPackage: selected }));
     },
-    [classData.selectedClassType]
+    [classData.selectedPackage]
   );
 
-  const selectGroupTypeHandle = useCallback(
-    (selected: {}) => {
-      setClassData((prev) => ({ ...prev, selectedGroupType: selected }));
-    },
-    [classData.selectedClassType]
-  );
-
-  const filteredCategoriesHandle = (objPropertyName: string, value: string) => {
-    return categories.filter((category: any) =>
-      category[objPropertyName]
+  const filterPackageHandle = (objPropertyName: string, value: string) => {
+    return packages.filter((pkage: any) =>
+      pkage[objPropertyName]
         .replace(/\s/gm, "")
         .toLowerCase()
         .includes(value.toLocaleLowerCase().replace(/\s/gm, ""))
@@ -151,24 +137,6 @@ const CreateClass = ({ edit }: createClassProps) => {
 
   const filteredTrainersHandle = (objPropertyName: string, value: string) => {
     return trainers.filter((category: any) =>
-      category[objPropertyName]
-        .replace(/\s/gm, "")
-        .toLowerCase()
-        .includes(value.toLocaleLowerCase().replace(/\s/gm, ""))
-    );
-  };
-
-  const filteredClassTypesHandle = (objPropertyName: string, value: string) => {
-    return classTypes.filter((category: any) =>
-      category[objPropertyName]
-        .replace(/\s/gm, "")
-        .toLowerCase()
-        .includes(value.toLocaleLowerCase().replace(/\s/gm, ""))
-    );
-  };
-
-  const filteredGroupTypesHandle = (objPropertyName: string, value: string) => {
-    return groupTypes.filter((category: any) =>
       category[objPropertyName]
         .replace(/\s/gm, "")
         .toLowerCase()
@@ -206,13 +174,41 @@ const CreateClass = ({ edit }: createClassProps) => {
     setFromTime(null);
     setToTime(null);
   };
+
+  const deleteTimeHandle = (index: number) => {
+    const copiedSelectedTimeAry = classData.selectedDateTime.find(
+      (res) => res.dateDay === currentDay
+    )?.selectedTime;
+
+    copiedSelectedTimeAry?.splice(index, 1);
+    setClassData((prev: any) => ({
+      ...prev,
+      selectedDateTime: prev.selectedDateTime.map((selDateTime: any) =>
+        selDateTime.dateDay === currentDay
+          ? { ...selDateTime, selectedTime: copiedSelectedTimeAry }
+          : selDateTime
+      ),
+    }));
+  };
+
+  const createClassHandle = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    console.log(classData);
+  };
+
   // for Edit class form
   useEffect(() => {
     if (edit)
       setClassData({
-        selectedCategory: { id: 1, name: "Yoga" },
-        selectedClassType: { id: 2, classTypeName: "Special" },
-        selectedGroupType: { groupTypeName: "Individual", id: 2 },
+        selectedPackage: {
+          category_id: 1,
+          id: 1,
+          package_name: "Yoga Group",
+          package_type: "Group",
+          plan_id: 1,
+          point_price: 100,
+        },
         selectedTrainer: { id: 2, name: "Trainer 2" },
         selectedDateTime: [
           {
@@ -247,11 +243,7 @@ const CreateClass = ({ edit }: createClassProps) => {
       });
   }, []);
 
-  const createClassHandle = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    console.log(classData);
-  };
+  console.log("packages", packages);
 
   return (
     <div className="w-full">
@@ -268,12 +260,13 @@ const CreateClass = ({ edit }: createClassProps) => {
           </button>
         </div>
         <DropdownInputTag
-          selectedLabel="Category"
-          initialLetter="Please select Category"
-          dropdownValues={filteredCategoriesHandle}
-          objPropertyName="name"
-          selectedDropdownValue={classData.selectedCategory}
-          selectHandle={selectCategoryHandle}
+          showMultipleLables={["package_name", "package_type"]}
+          selectedLabel="Package"
+          initialLetter="Please select package"
+          dropdownValues={filterPackageHandle}
+          objPropertyName="package_name"
+          selectedDropdownValue={classData.selectedPackage}
+          selectHandle={selectPackageHandle}
         />
         <DropdownInputTag
           selectedLabel="Trainer"
@@ -283,29 +276,15 @@ const CreateClass = ({ edit }: createClassProps) => {
           selectedDropdownValue={classData.selectedTrainer}
           selectHandle={selectTrainerHandle}
         />
-        <DropdownInputTag
-          selectedLabel="Class Type"
-          initialLetter="Please select Class Type"
-          dropdownValues={filteredClassTypesHandle}
-          objPropertyName="classTypeName"
-          selectedDropdownValue={classData.selectedClassType}
-          selectHandle={selectClassTypeHandle}
-        />
-        <DropdownInputTag
-          selectedLabel="Group Type"
-          initialLetter="Please select Group Type"
-          dropdownValues={filteredGroupTypesHandle}
-          objPropertyName="groupTypeName"
-          selectedDropdownValue={classData.selectedGroupType}
-          selectHandle={selectGroupTypeHandle}
-        />
         <div className="flex flex-wrap gap-[10px]">
           {classData.selectedDateTime.map((date) => (
             <h2
               onClick={() => setCurrentDay(date.dateDay)}
               className={`${
-                currentDay === date.dateDay && "bg-secondary text-white"
-              } flex items-center justify-center flex-1 py-[7px] px-[30px] 
+                date.selectedTime.length > 0
+                  ? "bg-green-600 font-semibold text-white"
+                  : currentDay === date.dateDay && "bg-secondary text-white"
+              }  flex items-center justify-center flex-1 py-[7px] px-[30px] 
               rounded-md cursor-pointer text-secondary font-poppins font-normal 
               hover:bg-secondary hover:text-white`}
               key={date.dateDay}
@@ -324,15 +303,22 @@ const CreateClass = ({ edit }: createClassProps) => {
             Add
           </button>
         </div>
+        <h3 className={`text-[18px] font-poppins font-normal`}>
+          For {currentDay}
+        </h3>
         <div className="min-h-[200px] bg-gray-200 rounded-md p-3 flex flex-col gap-2">
           {classData.selectedDateTime
             .filter((selectData) => selectData.dateDay === currentDay)[0]
-            .selectedTime.map((selTime) => (
-              <div className="flex items-center justify-between bg-white px-[10px] py-[15px] rounded-lg">
+            .selectedTime.map((selTime, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between bg-white px-[10px] py-[15px] rounded-lg"
+              >
                 <p className="font-poppins text-[16px]">
                   {selTime.startTime} to {selTime.endTime}
                 </p>
                 <MdOutlineDelete
+                  onClick={() => deleteTimeHandle(index)}
                   className={`w-[25px] h-[25px] text-red-400 cursor-pointer hover:text-red-900 duration-300`}
                 />
               </div>
@@ -340,7 +326,7 @@ const CreateClass = ({ edit }: createClassProps) => {
         </div>
         <button
           onClick={(e) => createClassHandle(e)}
-          className="bg-primary py-[10px] rounded-md font-poppins font-medium text-secondary"
+          className="bg-primary py-[10px] rounded-md font-poppins font-bold text-secondary"
         >
           Create Class
         </button>

@@ -251,6 +251,13 @@ const CreateClass = ({ edit }: createClassProps) => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     console.log(classData);
+    fetch("http://127.0.0.1:5000/classes/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(classData),
+    });
   };
 
   return (

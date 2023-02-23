@@ -8,8 +8,10 @@ type DropdownInputTagProps = {
   dropdownValues: (propertyName: string, value: string) => any;
   objPropertyName: string;
   selectedDropdownValue?: any;
+  // must return data with function if no includeSearchInput
   selectHandle: (selected: {}) => void;
   selectedLabel: string;
+  includeSearchInput?: boolean;
   showMultipleLables?: string[];
   // showMutipleLabels is used for when we want to show mutiple lables in our dropdown box
 };
@@ -22,6 +24,7 @@ const DropdownInputTag = ({
   selectHandle,
   selectedLabel,
   showMultipleLables,
+  includeSearchInput,
 }: DropdownInputTagProps) => {
   const [openDropdown, setOpenDropdown] = useState<Boolean>(false);
   const [searchInput, setSearchInput] = useState<string>("");
@@ -88,7 +91,7 @@ const DropdownInputTag = ({
           {Object.keys(selectedDropdownValue).length > 0 ? (
             showMultipleLables.map((lbl) => (
               <h3
-                className="font-poppins font-semibold text-white"
+                className="font-poppins text-[16px] md:text-[18px] font-semibold text-white"
                 ref={dropdownHeaderRef}
               >
                 {selectedDropdownValue[lbl]}
@@ -96,7 +99,7 @@ const DropdownInputTag = ({
             ))
           ) : (
             <h3
-              className="font-poppins font-semibold text-white"
+              className="font-poppins text-[16px] md:text-[18px] font-semibold text-white"
               ref={dropdownHeaderRef}
             >
               {initialLetter}
@@ -118,7 +121,7 @@ const DropdownInputTag = ({
           }`}
         >
           <h3
-            className="font-poppins font-semibold text-white"
+            className="font-poppins text-[16px] md:text-[18px] font-semibold text-white"
             ref={dropdownHeaderRef}
           >
             {Object.keys(selectedDropdownValue).length > 0
@@ -136,18 +139,21 @@ const DropdownInputTag = ({
           !openDropdown ? "open_dropdown" : "open_dropdown active"
         }`}
       >
-        <div className="flex items-center py-[10px] px-[10px] gap-2 bg-gray-200">
-          <CiSearch className="w-[30px] h-[30px]" />
-          <input
-            value={searchInput}
-            onChange={(e) => {
-              setSearchInput(e.target.value);
-            }}
-            className="outline-none flex-1 bg-transparent"
-            type="text"
-            placeholder="Search..."
-          />
-        </div>
+        {includeSearchInput && (
+          <div className="flex items-center py-[10px] px-[10px] gap-2 bg-gray-200">
+            <CiSearch className="w-[30px] h-[30px]" />
+            <input
+              value={searchInput}
+              onChange={(e) => {
+                setSearchInput(e.target.value);
+              }}
+              className="outline-none flex-1 bg-transparent"
+              type="text"
+              placeholder="Search..."
+            />
+          </div>
+        )}
+
         <ul className="flex flex-col bg-gray-200" ref={dropdownValueRef}>
           {showMultipleLables
             ? dropdownValues(objPropertyName, searchInput).map(

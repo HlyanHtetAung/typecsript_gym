@@ -3,7 +3,10 @@ export const STYLES = {
   max_width: "max-w-[1240px]",
   margin_center: "mx-auto",
   paddingY: "py-[30px]",
-  paddingX: "md:px-[0px] px-[20px]",
-  formHeading: "text-[30px] font-poppins font-extrabold",
+  paddingX: "md:px-[15px] px-[20px]",
+  formHeading: "text-[25px] md:text-[30px] font-poppins font-extrabold",
   iconStyle: "w-[30px] h-[30px]",
+  adminContorlActionBtn:
+    "sm:py-[50px] py-[30px] bg-secondary min-w-[200px] flex-1 flex items-center justify-center text-white rounded-md cursor-pointer font-semibold",
+  adminContorlBtnHeading: "text-[18px] md:text-[20px] font-bold",
 };

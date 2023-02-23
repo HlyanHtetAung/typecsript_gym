@@ -1,5 +1,5 @@
 import { useGetPackages } from "./usegetPackages";
 import { useGetTrainers } from "./useGetTrainers";
 import { useGetCategories } from "./useGetCategories";
-
-export { useGetPackages, useGetTrainers, useGetCategories };
+import { useGetPlans } from "./useGetPlans";
+export { useGetPackages, useGetTrainers, useGetCategories, useGetPlans };

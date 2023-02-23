@@ -82,11 +82,6 @@ const INITIAL_CLASS_DATA: objType = {
   ],
 };
 
-type classType = {
-  classTypeName: string;
-  id: number;
-};
-
 type createClassProps = {
   edit?: boolean;
 };
@@ -103,11 +98,6 @@ const CreateClass = ({ edit }: createClassProps) => {
   const groupTypes = [
     { groupTypeName: "Group", id: 1 },
     { groupTypeName: "Individual", id: 2 },
-  ];
-
-  const classTypes: classType[] = [
-    { id: 1, classTypeName: "Regular" },
-    { id: 2, classTypeName: "Special" },
   ];
 
   const [classData, setClassData] = useState<objType>(INITIAL_CLASS_DATA);

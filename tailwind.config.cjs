@@ -7,8 +7,10 @@ module.exports = {
       colors: {
         primary: "#F99919",
         secondary: "#2D2D2F",
-        dimWhite: "rgba(255, 255, 255, 0.7)",
-        dimBlue: "rgba(9, 151, 124, 0.1)",
+
+        navbarColor: "#141312",
+        letterColor: "#838D95",
+        hilightColor: "#C7C0AD",
       },
     },
     fontFamily: {

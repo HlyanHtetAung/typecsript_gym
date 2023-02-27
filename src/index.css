@@ -16,3 +16,8 @@
   max-height: 3000px;
   transition: max-height 300ms ease-in-out;
 }
+
+.onImage-blackBg-color {
+  background-color: #161d22;
+  opacity: 0.8;
+}

@@ -1,4 +1,5 @@
 import Navbar from "./Navbar";
-import HomePageClassTypes from "./HomePageClassTypes";
+import Hero from "./Hero";
+import ClassesSection from "./ClassesSection";
 
-export { Navbar, HomePageClassTypes };
+export { Navbar, Hero, ClassesSection };

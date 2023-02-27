@@ -11,6 +11,7 @@ module.exports = {
         navbarColor: "#141312",
         letterColor: "#838D95",
         hilightColor: "#C7C0AD",
+        bgBlack: "#12181C",
       },
     },
     fontFamily: {

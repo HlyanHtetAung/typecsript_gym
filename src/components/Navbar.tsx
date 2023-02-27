@@ -27,7 +27,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="w-full bg-navbarColor">
+    <nav className="w-full bg-navbarColor sticky top-0 left-0 z-[50]">
       <div
         className={`relative ${STYLES.max_width} ${STYLES.margin_center} ${STYLES.paddingX} h-[70px] flex justify-between items-center`}
       >
@@ -87,7 +87,7 @@ const Navbar = () => {
             !showNavbar && "opacity-0 pointer-events-none"
           } absolute ${
             showNavbar ? "top-[80px]" : "top-[50px]"
-          } duration-500 md:right-[15px] right-[20px] w-[250px] 
+          } z-50 duration-500 md:right-[15px] right-[20px] w-[250px] 
           bg-green-500 rounded-md p-[10px] bg-navbarColor shadow-lg shadow-indigo-500/50`}
         >
           <Link to="/aboutUs">

@@ -52,6 +52,14 @@ const AdminControls = () => {
                 Create Member
               </h3>
             </Link>
+            <Link
+              to="/createTrainer"
+              className={`${STYLES.adminContorlActionBtn}`}
+            >
+              <h3 className={`${STYLES.adminContorlBtnHeading}`}>
+                Create Trainer
+              </h3>
+            </Link>
           </div>
         </div>
         {/* Tables */}

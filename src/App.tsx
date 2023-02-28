@@ -7,7 +7,9 @@ import {
   CreatePackage,
   CreateMember,
   CreatePlan,
+  CreateTrainer,
 } from "./pages/index";
+
 import { Navbar } from "./components/index";
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
           <Route path="createPackage" element={<CreatePackage />} />
           <Route path="createMember" element={<CreateMember />} />
           <Route path="createPlan" element={<CreatePlan />} />
+          <Route path="createTrainer" element={<CreateTrainer />} />
         </Route>
       </Routes>
     </div>

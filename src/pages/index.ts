@@ -5,6 +5,8 @@ import CreateCategory from "./CreateCategory";
 import CreatePackage from "./CreatePackage";
 import CreateMember from "./CreateMember";
 import CreatePlan from "./CreatePlan";
+import CreateTrainer from "./CreateTrainer";
+
 export {
   Home,
   CreateClass,
@@ -13,4 +15,5 @@ export {
   CreatePackage,
   CreateMember,
   CreatePlan,
+  CreateTrainer,
 };

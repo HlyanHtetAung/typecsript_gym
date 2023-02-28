@@ -29,9 +29,13 @@ const CreateTrainer = () => {
   };
 
   const createTrainerHandle = () => {
-    console.log(trainerName);
-    console.log(description);
-    console.log(trainerImageFile);
+    const formData = new FormData();
+
+    if (trainerImageFile) {
+      formData.append("file", trainerImageFile);
+    }
+    formData.append("name", trainerName);
+    formData.append("about", description);
   };
 
   return (

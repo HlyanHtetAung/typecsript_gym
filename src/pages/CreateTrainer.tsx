@@ -35,7 +35,7 @@ const CreateTrainer = () => {
       formData.append("file", trainerImageFile);
     }
     formData.append("name", trainerName);
-    formData.append("about", description);
+    formData.append("description", description);
 
     await fetch("http://localhost:5000/trainer/add", {
       method: "POST",

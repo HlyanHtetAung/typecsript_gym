@@ -1,11 +1,11 @@
-import { ClassesSection, Hero } from "../components";
-import { STYLES } from "../styles";
+import { ClassesSection, Hero, ShowcaseTrainer } from "../components";
 
 const Home = () => {
   return (
     <div className="w-full">
       <Hero />
       <ClassesSection />
+      <ShowcaseTrainer />
     </div>
   );
 };

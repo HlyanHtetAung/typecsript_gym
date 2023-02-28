@@ -12,6 +12,7 @@ module.exports = {
         letterColor: "#838D95",
         hilightColor: "#C7C0AD",
         bgBlack: "#12181C",
+        bgWhite: "#F4F4F4",
       },
     },
     fontFamily: {

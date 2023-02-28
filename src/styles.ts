@@ -15,6 +15,9 @@ export const STYLES = {
     "font-semibold border border-[#C7C0AD] py-[5px] px-[10px] rounded-md text-[#C7C0AD] hover:bg-[#C7C0AD] hover:text-black hover:border-transparent duration-300",
   heading2:
     "text-hilightColor text-[30px] md:text-[40px] font-bold font-poppins",
+
+  heading2OnBgWhite:
+    "text-black text-[30px] md:text-[40px] font-bold font-poppins",
   letter:
     "text-letterColor text-[17px] font-normal leading-relaxed font-poppins",
 };

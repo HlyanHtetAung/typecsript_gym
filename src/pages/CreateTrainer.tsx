@@ -28,7 +28,7 @@ const CreateTrainer = () => {
     setTrainerImageFile(null);
   };
 
-  const createTrainerHandle = () => {
+  const createTrainerHandle = async () => {
     const formData = new FormData();
 
     if (trainerImageFile) {
@@ -36,6 +36,13 @@ const CreateTrainer = () => {
     }
     formData.append("name", trainerName);
     formData.append("about", description);
+
+    await fetch("http://localhost:5000/trainer/add", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err.message));
   };
 
   return (

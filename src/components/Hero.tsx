@@ -1,18 +1,18 @@
-import React from "react";
+
 import { Link } from "react-router-dom";
 import { STYLES } from "../styles";
 
 const Hero = () => {
   return (
-    <section
+    <section 
       id="hero-section"
-      className="w-full bg-[url(https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/brunette-girl-doing-pilates-exercise-for-the-royalty-free-image-1660039849.jpg)] 
-    h-[600px] bg-cover bg-center bg-no-repeat"
+      className="w-full bg-[url('./images/bg3.jpg')] 
+    h-screen bg-cover bg-center bg-no-repeat"
     >
       <div
         className={`${STYLES.max_width} ${STYLES.margin_center} ${STYLES.paddingX}`}
       >
-        <div className="onImage-blackBg-color w-full ss:w-[450px] px-[50px] py-[60px] flex flex-col gap-[10px]">
+        <div className="onImage-blackBg-color w-full ss:w-[450px] px-[50px] py-[60px] flex flex-col gap-[10px] ml-auto">
           <h2 className={`${STYLES.heading2}`}>Soul For Pilates</h2>
           <p className={STYLES.letter}>
             Lorem ipsum dolor sit amet consectetur. Sit fusce scelerisque quis

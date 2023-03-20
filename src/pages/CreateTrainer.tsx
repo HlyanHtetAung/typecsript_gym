@@ -37,7 +37,7 @@ const CreateTrainer = () => {
     formData.append("name", trainerName);
     formData.append("description", description);
 
-    await fetch("http://localhost:5000/trainer/add", {
+    await fetch("https://menava1999.pythonanywhere.com/trainer/add", {
       method: "POST",
       body: formData,
     })

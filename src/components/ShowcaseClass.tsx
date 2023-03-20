@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { STYLES } from "../styles";
 
 type ShowcaseClassProp = {
@@ -8,13 +8,23 @@ type ShowcaseClassProp = {
 };
 
 const ShowcaseClass = ({ imageUrl, title, titleInfo }: ShowcaseClassProp) => {
+  const [image, setImage] = useState("");
+
+  useEffect(()=> {
+    const fetchImage = async () => {
+      const response = await import(imageUrl); // change relative path to suit your needs
+      setImage(response.default);
+  }
+  fetchImage();  
+  },[]);
+
   return (
     <div className="relative w-full flex flex-col md:flex-row md:items-center gap-[20px] mt-[40px]">
       <div className="flex-1 relative">
         <img
-          src={imageUrl}
+          src={image}
           alt={title}
-          className="min-h-[400px] h-full w-full object-cover "
+          className="max-h-[600px] h-full w-full object-cover "
         />
         <div className="onImage-blackBg-color absolute top-0 left-0 px-[20px] py-[10px] text-hilightColor font-bold rounded-br-lg text-[17px]">
           {title}

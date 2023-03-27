@@ -7,7 +7,7 @@ import { RxDoubleArrowDown } from 'react-icons/rx';
 
 
 const ClassDetail = ({clsDetail } : any) => {
-  
+  console.log(clsDetail);
   return (
     <section 
     id="hero-section"

@@ -1,14 +1,15 @@
-import PilateBgImage from '../images/bg.jpg';
-
+import AboutPilate3 from '../images/aboutPilate3.jpg';
+import AboutPilate from '../images/aboutPilate.jpg';
+import BgDetailPilate from '../images/bg.jpg';
 export const ABOUT_CLASSES = [
     {
-        imageUrl: "../images/aboutPilate3.jpg",
+        image: AboutPilate3,
         title: "Yoga",
         classDetailPath: '/classDetail/yoga',
         titleInfo: "Lorem ipsum dolor sit amet consectetur. Sem velit consequat non ut placerat fermentum habitasse vitae. Id sem nibh nunc auctor. Eleifend eu pellentesque vulputate nisi amet velit commodo laoreet aliquet. Pellentesque risus cursus nec suscipit. Lorem ipsum dolor sit amet consectetur. Sem velit consequat non ut placerat fermentum habitasse vitae. Id sem nibh nunc auctor. Eleifend eu pellentesque vulputate nisi amet velit commodo laoreet aliquet. Pellentesque risus cursus nec suscipit."
     },
     {
-        imageUrl: "../images/aboutPilate.jpg",
+        image: AboutPilate,
         title: "Pilate",
         classDetailPath: '/classDetail/pilate',
         titleInfo: "Lorem ipsum dolor sit amet consectetur. Sem velit consequat non ut placerat fermentum habitasse vitae. Id sem nibh nunc auctor. Eleifend eu pellentesque vulputate nisi amet velit commodo laoreet aliquet. Pellentesque risus cursus nec suscipit. Lorem ipsum dolor sit amet consectetur. Sem velit consequat non ut placerat fermentum habitasse vitae. Id sem nibh nunc auctor. Eleifend eu pellentesque vulputate nisi amet velit commodo laoreet aliquet. Pellentesque risus cursus nec suscipit."
@@ -17,6 +18,6 @@ export const ABOUT_CLASSES = [
 
 
 export const PILATES_DETAIL = {
-    backgroundImage: "bg.jpg",
+    backgroundImage: BgDetailPilate,
     header: "Pilate"
 };

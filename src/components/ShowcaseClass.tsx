@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { STYLES } from "../styles";
 
@@ -10,21 +9,11 @@ type ShowcaseClassProp = {
 };
 
 const ShowcaseClass = ({ imageUrl, title, titleInfo ,classDetailPath }: ShowcaseClassProp) => {
-  const [image, setImage] = useState("");
-
-  useEffect(()=> {
-    const fetchImage = async () => {
-      const response = await import(imageUrl); // change relative path to suit your needs
-      setImage(response.default);
-  }
-  fetchImage();  
-  },[]);
-
   return (
     <div className="relative w-full flex flex-col md:flex-row md:items-center gap-[20px] mt-[40px]">
       <div className="flex-1 relative">
         <img
-          src={image}
+          src={imageUrl}
           alt={title}
           className="max-h-[600px] h-full w-full object-cover "
         />

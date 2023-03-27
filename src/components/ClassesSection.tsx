@@ -12,7 +12,8 @@ const ClassesSection = () => {
         {
           ABOUT_CLASSES.map((aboutClass)=>         
           <ShowcaseClass
-          imageUrl={aboutClass.imageUrl}
+          key={aboutClass.title}
+          imageUrl={aboutClass.image}
           title={aboutClass.title}
           titleInfo={aboutClass.titleInfo}
           classDetailPath={aboutClass.classDetailPath}

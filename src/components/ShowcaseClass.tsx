@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { STYLES } from "../styles";
 
 type ShowcaseClassProp = {
   imageUrl: string;
   title: string;
   titleInfo: string;
+  classDetailPath: string
 };
 
-const ShowcaseClass = ({ imageUrl, title, titleInfo }: ShowcaseClassProp) => {
+const ShowcaseClass = ({ imageUrl, title, titleInfo ,classDetailPath }: ShowcaseClassProp) => {
   const [image, setImage] = useState("");
 
   useEffect(()=> {
@@ -33,9 +35,12 @@ const ShowcaseClass = ({ imageUrl, title, titleInfo }: ShowcaseClassProp) => {
       <div className="flex-1">
         <h3 className="text-white text-[30px]">About {title}</h3>
         <p className={`${STYLES.letter} mt-[10px]`}>{titleInfo}</p>
+        <Link to={classDetailPath}>
         <button className={`${STYLES.button}  w-[50%] mt-[30px]`}>
           View {title} Classes
         </button>
+        </Link>
+
       </div>
     </div>
   );

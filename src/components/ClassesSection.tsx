@@ -15,6 +15,7 @@ const ClassesSection = () => {
           imageUrl={aboutClass.imageUrl}
           title={aboutClass.title}
           titleInfo={aboutClass.titleInfo}
+          classDetailPath={aboutClass.classDetailPath}
         />)
         }
       </div>

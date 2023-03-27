@@ -1,8 +1,16 @@
 
 import { STYLES } from "../styles";
 import Trainer from "./Trainer";
-import {ABOUT_TRAINERS} from '../assets/content';
+import { useGetTrainers } from "../customHooks";
+
+
 const ShowcaseTrainer = () => {
+  
+  const {trainers, setTrainers} = useGetTrainers();
+
+
+  console.log(trainers);
+
   return (
     <section id="trainer-section" className="w-full bg-bgWhite">
       <div
@@ -10,10 +18,11 @@ const ShowcaseTrainer = () => {
       >
         <h2 className={STYLES.heading2OnBgWhite}>Our Trainers</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[20px] mt-[20px]">
-          {ABOUT_TRAINERS.map((aboutTrainer)=>           
+          {trainers.map((aboutTrainer : any)=>           
           <Trainer
-            trainerName={aboutTrainer.trainerName}
-            trainerPhotoUrl={aboutTrainer.trainerPhotoUrl}
+            key={aboutTrainer.id}
+            trainerName={aboutTrainer.name}
+            trainerPhotoUrl={aboutTrainer.image_path}
           />)}
         </div>
       </div>

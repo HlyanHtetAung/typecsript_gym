@@ -7,20 +7,20 @@ type TrainerProps = {
 };
 
 const Trainer = ({ trainerName, trainerPhotoUrl }: TrainerProps) => {
-  const [image, setImage] = useState("");
+  // const [image, setImage] = useState("");
 
-  useEffect(()=> {
-    const fetchImage = async () => {
-      const response = await import(trainerPhotoUrl); // change relative path to suit your needs
-      setImage(response.default);
-  }
-  fetchImage();  
-  },[]);
+  // useEffect(()=> {
+  //   const fetchImage = async () => {
+  //     const response = await import(trainerPhotoUrl); // change relative path to suit your needs
+  //     setImage(response.default);
+  // }
+  // fetchImage();  
+  // },[]);
 
   return (
     <div className="relative h-[400px] drop-shadow-lg cursor-pointer overflow-hidden">
       <img
-        src={image}
+        src={`https://drive.google.com/uc?export=view&id=${trainerPhotoUrl}`}
         alt={trainerName}
         className="w-full h-full object-cover hover:scale-110 duration-200"
       />

@@ -10,7 +10,7 @@ const ClassDetail = ({ clsDetail }: any) => {
   const scrollHandle = () => {
     toScrollElement.current.scrollIntoView();
   };
-  var1 = list[:]
+
   return (
     <>
       <div className="relative w-full h-screen">

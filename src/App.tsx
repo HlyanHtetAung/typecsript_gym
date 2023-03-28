@@ -13,6 +13,7 @@ import {
 
 import { Navbar } from './components/index';
 import { PILATES_DETAIL, YOGA_DETAIL } from './assets/content';
+import AboutUs from './pages/AboutUs';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/">
           <Route index element={<Home />} />
           <Route path="createClass" element={<CreateClass />} />
+          <Route path="aboutUs" element={<AboutUs />} />
           <Route path="editClass" element={<CreateClass edit />} />
           {/* Admin Side */}
           <Route path="adminDashboard" element={<AdminControls />} />

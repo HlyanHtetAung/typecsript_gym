@@ -20,7 +20,7 @@ const ShowcaseClass = ({
         <img
           src={imageUrl}
           alt={title}
-          className="max-h-[600px] h-full w-full object-cover "
+          className="h-[350px] sm:max-h-[600px] h-full w-full object-cover "
         />
         <div className="onImage-blackBg-color absolute top-0 left-0 px-[20px] py-[10px] text-hilightColor font-bold rounded-br-lg text-[17px]">
           {title}

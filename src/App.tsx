@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
 import {
   CreateClass,
   Home,
@@ -8,11 +8,11 @@ import {
   CreateMember,
   CreatePlan,
   CreateTrainer,
-  ClassDetail
-} from "./pages/index";
+  ClassDetail,
+} from './pages/index';
 
-import { Navbar } from "./components/index";
-import { PILATES_DETAIL } from "./assets/content";
+import { Navbar } from './components/index';
+import { PILATES_DETAIL, YOGA_DETAIL } from './assets/content';
 
 function App() {
   return (
@@ -30,7 +30,14 @@ function App() {
           <Route path="createMember" element={<CreateMember />} />
           <Route path="createPlan" element={<CreatePlan />} />
           <Route path="createTrainer" element={<CreateTrainer />} />
-          <Route path="classDetail/pilate" element={<ClassDetail clsDetail={PILATES_DETAIL}/>} />
+          <Route
+            path="classDetail/pilate"
+            element={<ClassDetail clsDetail={PILATES_DETAIL} />}
+          />
+          <Route
+            path="classDetail/yoga"
+            element={<ClassDetail clsDetail={YOGA_DETAIL} />}
+          />
         </Route>
       </Routes>
     </div>

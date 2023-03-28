@@ -1,12 +1,12 @@
-import Home from "./Home";
-import CreateClass from "./CreateClass";
-import AdminControls from "./AdminControls";
-import CreateCategory from "./CreateCategory";
-import CreatePackage from "./CreatePackage";
-import CreateMember from "./CreateMember";
-import CreatePlan from "./CreatePlan";
-import CreateTrainer from "./CreateTrainer";
-import ClassDetail  from "./ClassDetail";
+import Home from './Home';
+import CreateClass from './CreateClass';
+import AdminControls from './AdminControls';
+import CreateCategory from './CreateCategory';
+import CreatePackage from './CreatePackage';
+import CreateMember from './CreateMember';
+import CreatePlan from './CreatePlan';
+import CreateTrainer from './CreateTrainer';
+import ClassDetail from './ClassDetail';
 
 export {
   Home,
@@ -17,5 +17,5 @@ export {
   CreateMember,
   CreatePlan,
   CreateTrainer,
-  ClassDetail
+  ClassDetail,
 };

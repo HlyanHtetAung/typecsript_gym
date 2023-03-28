@@ -1,6 +1,6 @@
-import { STYLES } from "../styles";
-import ShowcaseClass from "./ShowcaseClass";
-import {ABOUT_CLASSES} from '../assets/content';
+import { STYLES } from '../styles';
+import ShowcaseClass from './ShowcaseClass';
+import { ABOUT_CLASSES } from '../assets/content';
 
 const ClassesSection = () => {
   return (
@@ -9,16 +9,15 @@ const ClassesSection = () => {
         className={`${STYLES.max_width} ${STYLES.margin_center} ${STYLES.paddingX} ${STYLES.paddingY}`}
       >
         <h2 className={STYLES.heading2}>Classes We Provide</h2>
-        {
-          ABOUT_CLASSES.map((aboutClass)=>         
+        {ABOUT_CLASSES.map((aboutClass) => (
           <ShowcaseClass
-          key={aboutClass.title}
-          imageUrl={aboutClass.image}
-          title={aboutClass.title}
-          titleInfo={aboutClass.titleInfo}
-          classDetailPath={aboutClass.classDetailPath}
-        />)
-        }
+            key={aboutClass.title}
+            imageUrl={aboutClass.image}
+            title={aboutClass.title}
+            titleInfo={aboutClass.titleInfo}
+            classDetailPath={aboutClass.classDetailPath}
+          />
+        ))}
       </div>
     </section>
   );

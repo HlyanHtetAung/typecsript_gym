@@ -1,4 +1,4 @@
-import { ClassesSection, Hero, ShowcaseTrainer } from "../components";
+import { ClassesSection, Hero, ShowcaseTrainer } from '../components';
 
 const Home = () => {
   return (

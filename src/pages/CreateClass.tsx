@@ -13,8 +13,8 @@ import dayjs, { Dayjs } from 'dayjs';
 import { MdOutlineDelete } from 'react-icons/md';
 
 interface objType {
-  selectedPackage: {};
-  selectedTrainer: {};
+  selectedPackage: any;
+  selectedTrainer: any;
   selectedDateTime: [
     {
       dateDay: string;
@@ -87,10 +87,9 @@ type createClassProps = {
 };
 
 const CreateClass = ({ edit }: createClassProps) => {
-  const param = useParams();
-  console.log(param);
   const { packages } = useGetPackages();
   const { trainers } = useGetTrainers();
+
   const [fromTime, setFromTime] = useState<Dayjs | null>(null);
   const [toTime, setToTime] = useState<Dayjs | null>(null);
   const [currentDay, setCurrentDay] = useState<string>('Sun');
@@ -225,7 +224,6 @@ const CreateClass = ({ edit }: createClassProps) => {
   const createClassHandle = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    console.log(classData);
     fetch(`${import.meta.env.VITE_HOST_URL}/classes/add`, {
       method: 'POST',
       headers: {
@@ -250,21 +248,24 @@ const CreateClass = ({ edit }: createClassProps) => {
           </button>
         </div>
         <DropdownInputTag
-          showMultipleLables={['package_name', 'package_type']}
+          showMultipleLables={['package_name', 'id']}
           selectedLabel="Package"
           initialLetter="Please select package"
           dropdownValues={filterPackageHandle}
           objPropertyName="package_name"
           selectedDropdownValue={classData.selectedPackage}
           selectHandle={selectPackageHandle}
+          includeSearchInput
         />
         <DropdownInputTag
+          showMultipleLables={['name', 'id']}
           selectedLabel="Trainer"
           initialLetter="Please select Trainers"
           dropdownValues={filteredTrainersHandle}
           objPropertyName="name"
           selectedDropdownValue={classData.selectedTrainer}
           selectHandle={selectTrainerHandle}
+          includeSearchInput
         />
         <div className="flex flex-wrap gap-[10px]">
           {classData.selectedDateTime.map((date) => (

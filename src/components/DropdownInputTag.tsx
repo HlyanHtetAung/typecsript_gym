@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from "react";
-import { RiArrowDropDownLine } from "react-icons/ri";
-import { CiSearch } from "react-icons/ci";
-import { STYLES } from "../styles";
+import { useState, useEffect, useRef } from 'react';
+import { RiArrowDropDownLine } from 'react-icons/ri';
+import { CiSearch } from 'react-icons/ci';
+import { STYLES } from '../styles';
 
 type DropdownInputTagProps = {
   initialLetter: string;
@@ -27,7 +27,7 @@ const DropdownInputTag = ({
   includeSearchInput,
 }: DropdownInputTagProps) => {
   const [openDropdown, setOpenDropdown] = useState<Boolean>(false);
-  const [searchInput, setSearchInput] = useState<string>("");
+  const [searchInput, setSearchInput] = useState<string>('');
   const dropdownInputWrapperRef = useRef<HTMLDivElement>(null);
   const dropdownHeaderRef = useRef<HTMLHeadingElement>(null);
   const dropdownIconRef = useRef<HTMLDivElement>(null);
@@ -50,12 +50,12 @@ const DropdownInputTag = ({
           return;
         }
         if (dropdownHeaderRef.current === (target as Node)) {
-          console.log("triggered");
+          console.log('triggered');
           setOpenDropdown((prev) => !prev);
           return;
         }
         if (dropdownIconRef?.current?.contains(target as Node)) {
-          console.log("triggered");
+          console.log('triggered');
           setOpenDropdown((prev) => !prev);
           return;
         }
@@ -68,8 +68,8 @@ const DropdownInputTag = ({
       }
     };
 
-    window.addEventListener("click", closeDropdownHandle);
-    return () => window.removeEventListener("click", closeDropdownHandle);
+    window.addEventListener('click', closeDropdownHandle);
+    return () => window.removeEventListener('click', closeDropdownHandle);
   }, []);
 
   return (
@@ -77,66 +77,33 @@ const DropdownInputTag = ({
       {Object.keys(selectedDropdownValue).length > 0 ? (
         <p className="font-normal font-poppins pb-[5px]">{selectedLabel}</p>
       ) : null}
-      {showMultipleLables ? (
-        <div
-          ref={dropdownHeaderWrapperRef}
-          className={`flex items-center justify-between py-[10px] px-[10px]  ${
-            openDropdown ? "rounded-tl-md rounded-tr-md" : "rounded-md"
-          } ${
-            Object.keys(selectedDropdownValue).length > 0
-              ? "bg-green-600"
-              : "bg-secondary"
-          }`}
+
+      <div
+        ref={dropdownHeaderWrapperRef}
+        className={`flex items-center justify-between py-[10px] px-[10px]  ${
+          openDropdown ? 'rounded-tl-md rounded-tr-md' : 'rounded-md'
+        } ${
+          Object.keys(selectedDropdownValue).length > 0
+            ? 'bg-green-600'
+            : 'bg-secondary'
+        }`}
+      >
+        <h3
+          className="font-poppins text-[16px] md:text-[18px] font-semibold text-white"
+          ref={dropdownHeaderRef}
         >
-          {Object.keys(selectedDropdownValue).length > 0 ? (
-            showMultipleLables.map((lbl) => (
-              <h3
-                className="font-poppins text-[16px] md:text-[18px] font-semibold text-white"
-                ref={dropdownHeaderRef}
-              >
-                {selectedDropdownValue[lbl]}
-              </h3>
-            ))
-          ) : (
-            <h3
-              className="font-poppins text-[16px] md:text-[18px] font-semibold text-white"
-              ref={dropdownHeaderRef}
-            >
-              {initialLetter}
-            </h3>
-          )}
-          <div ref={dropdownIconRef}>
-            <RiArrowDropDownLine className={`${STYLES.iconStyle} text-white`} />
-          </div>
+          {Object.keys(selectedDropdownValue).length > 0
+            ? selectedDropdownValue[objPropertyName]
+            : initialLetter}
+        </h3>
+        <div ref={dropdownIconRef}>
+          <RiArrowDropDownLine className={`${STYLES.iconStyle} text-white`} />
         </div>
-      ) : (
-        <div
-          ref={dropdownHeaderWrapperRef}
-          className={`flex items-center justify-between py-[10px] px-[10px]  ${
-            openDropdown ? "rounded-tl-md rounded-tr-md" : "rounded-md"
-          } ${
-            Object.keys(selectedDropdownValue).length > 0
-              ? "bg-green-600"
-              : "bg-secondary"
-          }`}
-        >
-          <h3
-            className="font-poppins text-[16px] md:text-[18px] font-semibold text-white"
-            ref={dropdownHeaderRef}
-          >
-            {Object.keys(selectedDropdownValue).length > 0
-              ? selectedDropdownValue[objPropertyName]
-              : initialLetter}
-          </h3>
-          <div ref={dropdownIconRef}>
-            <RiArrowDropDownLine className={`${STYLES.iconStyle} text-white`} />
-          </div>
-        </div>
-      )}
+      </div>
 
       <div
         className={`${
-          !openDropdown ? "open_dropdown" : "open_dropdown active"
+          !openDropdown ? 'open_dropdown' : 'open_dropdown active'
         }`}
       >
         {includeSearchInput && (
@@ -161,14 +128,14 @@ const DropdownInputTag = ({
                   <li
                     onClick={() => {
                       selectHandle(ddValue);
-                      setSearchInput("");
+                      setSearchInput('');
                     }}
                     key={ddValue.id}
                     className={`${
                       index ===
                       dropdownValues(objPropertyName, searchInput).length - 1
                         ? null
-                        : "border-b border-gray-300"
+                        : 'border-b border-gray-300'
                     } flex items-center justify-between px-[20px] py-[10px] hover:bg-primary font-poppins font-normal text-normal`}
                   >
                     {showMultipleLables.map((lbl, index) => (
@@ -182,14 +149,14 @@ const DropdownInputTag = ({
                   <li
                     onClick={() => {
                       selectHandle(ddValue);
-                      setSearchInput("");
+                      setSearchInput('');
                     }}
                     key={ddValue.id}
                     className={`${
                       index ===
                       dropdownValues(objPropertyName, searchInput).length - 1
                         ? null
-                        : "border-b border-gray-300"
+                        : 'border-b border-gray-300'
                     } px-[20px] py-[10px] hover:bg-primary font-poppins font-normal text-normal`}
                   >
                     {ddValue[objPropertyName]}

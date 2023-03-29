@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 type inputBoxTagProp = {
   value: string;
   setValue: (value: string) => void;
-  placholder: string;
+  placholder?: string;
 };
 
 const InputBoxTag = ({ value, setValue, placholder }: inputBoxTagProp) => {

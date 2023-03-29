@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export const useGetCategories = () => {
   const [categories, setCategories] = useState<any>([]);
 
   const fetchCategories = async () => {
-    const res = await fetch("http://localhost:5000/category/get");
+    const res = await fetch(`${import.meta.env.VITE_HOST_URL}/category/get`);
     const data = await res.json();
     setCategories(data);
   };

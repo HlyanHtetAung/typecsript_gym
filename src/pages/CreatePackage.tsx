@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import DropdownInputTag from "../components/DropdownInputTag";
-import { useGetCategories, useGetPlans } from "../customHooks";
-import { STYLES } from "../styles";
+import React, { useState } from 'react';
+import DropdownInputTag from '../components/DropdownInputTag';
+import { useGetCategories, useGetPlans } from '../customHooks';
+import { STYLES } from '../styles';
 
 type classType = {
   classTypeName: string;
@@ -29,21 +29,21 @@ const CreatePackage = () => {
     useState<packageType>(INITIAL_PACKAGE_DATA);
 
   const classTypes: classType[] = [
-    { id: 1, classTypeName: "Regular" },
-    { id: 2, classTypeName: "Special" },
+    { id: 1, classTypeName: 'Regular' },
+    { id: 2, classTypeName: 'Special' },
   ];
 
   const groupTypes = [
-    { groupTypeName: "Group", id: 1 },
-    { groupTypeName: "Individual", id: 2 },
+    { groupTypeName: 'Group', id: 1 },
+    { groupTypeName: 'Individual', id: 2 },
   ];
 
   const filterCategoriesHandle = (objPropertyName: string, value: string) => {
     return categories.filter((pkage: any) =>
       pkage[objPropertyName]
-        .replace(/\s/gm, "")
+        .replace(/\s/gm, '')
         .toLowerCase()
-        .includes(value.toLocaleLowerCase().replace(/\s/gm, ""))
+        .includes(value.toLocaleLowerCase().replace(/\s/gm, ''))
     );
   };
   const filterGroupTypeHandle = () => {
@@ -65,7 +65,13 @@ const CreatePackage = () => {
   };
 
   const createPackageHandle = () => {
-    console.log(packageData);
+    // fetch(`${import.meta.env.VITE_HOST_URL}/package/add`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(classData),
+    // });
   };
 
   return (

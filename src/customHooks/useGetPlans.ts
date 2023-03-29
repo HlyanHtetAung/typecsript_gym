@@ -4,7 +4,7 @@ export const useGetPlans = () => {
   const [plans, setPlans] = useState<any>([]);
 
   const fetchPackages = async () => {
-    const res = await fetch('http://localhost:5000/plan/get');
+    const res = await fetch(`${import.meta.env.VITE_HOST_URL}/plan/get`);
     const data = await res.json();
     setPlans(data);
   };

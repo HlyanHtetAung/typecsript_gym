@@ -1,12 +1,19 @@
-import { useState } from "react";
-import InputBoxTag from "../components/InputBoxTag";
-import { STYLES } from "../styles";
+import { useState } from 'react';
+import InputBoxTag from '../components/InputBoxTag';
+import { STYLES } from '../styles';
 
 const CreateCategory = () => {
-  const [categoryInput, setCategoryInput] = useState<string | "">("");
+  const [categoryInput, setCategoryInput] = useState<string | ''>('');
 
   const createPlanHandle = () => {
-    setCategoryInput("");
+    fetch(`${import.meta.env.VITE_HOST_URL}/category/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ categoryInput }),
+    });
+    setCategoryInput('');
   };
 
   return (
@@ -20,7 +27,11 @@ const CreateCategory = () => {
             Reset Data
           </button>
         </div>
-        <InputBoxTag value={categoryInput} setValue={setCategoryInput} />
+        <InputBoxTag
+          value={categoryInput}
+          setValue={setCategoryInput}
+          placholder="Enter Category.."
+        />
         <button
           onClick={createPlanHandle}
           className="w-full bg-primary py-[10px] rounded-md font-poppins font-bold text-secondary"

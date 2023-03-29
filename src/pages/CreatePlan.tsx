@@ -1,12 +1,19 @@
-import React, { useState } from "react";
-import InputBoxTag from "../components/InputBoxTag";
-import { STYLES } from "../styles";
+import React, { useState } from 'react';
+import InputBoxTag from '../components/InputBoxTag';
+import { STYLES } from '../styles';
 
 const CreatePlan = () => {
-  const [planInput, setPlanInput] = useState<string | "">("");
+  const [planInput, setPlanInput] = useState<string | ''>('');
 
   const createPlanHandle = () => {
-    setPlanInput("");
+    fetch(`${import.meta.env.VITE_HOST_URL}/plan/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ plan_type: planInput }),
+    });
+    setPlanInput('');
   };
 
   return (
@@ -20,7 +27,11 @@ const CreatePlan = () => {
             Reset Data
           </button>
         </div>
-        <InputBoxTag value={planInput} setValue={setPlanInput} />
+        <InputBoxTag
+          value={planInput}
+          setValue={setPlanInput}
+          placholder="Enter Plan"
+        />
         <button
           onClick={createPlanHandle}
           className="w-full bg-primary py-[10px] rounded-md font-poppins font-bold text-secondary"

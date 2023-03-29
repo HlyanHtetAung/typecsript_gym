@@ -11,7 +11,7 @@ const CreateCategory = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ categoryInput }),
+      body: JSON.stringify({ category_type: categoryInput }),
     });
     setCategoryInput('');
   };

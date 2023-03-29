@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DropdownInputTag from '../components/DropdownInputTag';
+import InputBoxTag from '../components/InputBoxTag';
 import { useGetCategories, useGetPlans } from '../customHooks';
 import { STYLES } from '../styles';
 
@@ -9,9 +10,9 @@ type classType = {
 };
 
 interface packageType {
-  selectedCategory: {};
-  selectedGroupType: {};
-  selectedPlan: {};
+  selectedCategory: any;
+  selectedGroupType: any;
+  selectedPlan: any;
 }
 
 const INITIAL_PACKAGE_DATA: packageType = {
@@ -23,8 +24,7 @@ const INITIAL_PACKAGE_DATA: packageType = {
 const CreatePackage = () => {
   const { categories } = useGetCategories();
   const { plans } = useGetPlans();
-
-  console.log(plans);
+  const [packageName, setPackageName] = useState<string>('');
   const [packageData, setPackageData] =
     useState<packageType>(INITIAL_PACKAGE_DATA);
 
@@ -65,13 +65,25 @@ const CreatePackage = () => {
   };
 
   const createPackageHandle = () => {
-    // fetch(`${import.meta.env.VITE_HOST_URL}/package/add`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(classData),
-    // });
+    fetch(`${import.meta.env.VITE_HOST_URL}/package/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        package_name: packageName,
+        package_type: packageData.selectedGroupType.id,
+        category_id: packageData.selectedCategory.id,
+        plan_id: packageData.selectedPlan.id,
+      }),
+    });
+    setPackageData(INITIAL_PACKAGE_DATA);
+    setPackageName('');
+  };
+
+  const resetDataHandle = () => {
+    setPackageData(INITIAL_PACKAGE_DATA);
+    setPackageName('');
   };
 
   return (
@@ -81,10 +93,18 @@ const CreatePackage = () => {
       >
         <div className="flex items-center justify-between">
           <h3 className={`${STYLES.formHeading}`}>Create Package Form</h3>
-          <button className="bg-red-500 py-[6px] px-[10px] rounded-md text-red-900 font-poppins text-[15px]">
+          <button
+            onClick={resetDataHandle}
+            className="bg-red-500 py-[6px] px-[10px] rounded-md text-red-900 font-poppins text-[15px]"
+          >
             Reset Data
           </button>
         </div>
+        <InputBoxTag
+          value={packageName}
+          setValue={setPackageName}
+          placholder="Enter Package Name.."
+        />
         <DropdownInputTag
           selectedLabel="Category"
           initialLetter="Please select Category"

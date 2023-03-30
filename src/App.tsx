@@ -14,6 +14,7 @@ import {
 import { Navbar } from './components/index';
 import { PILATES_DETAIL, YOGA_DETAIL } from './assets/content';
 import AboutUs from './pages/AboutUs';
+import ClientClasses from './pages/ClientClasses';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="createClass" element={<CreateClass />} />
           <Route path="aboutUs" element={<AboutUs />} />
           <Route path="editClass" element={<CreateClass edit />} />
+          <Route path="classes" element={<ClientClasses />} />
           {/* Admin Side */}
           <Route path="adminDashboard" element={<AdminControls />} />
           <Route path="createCategory" element={<CreateCategory />} />

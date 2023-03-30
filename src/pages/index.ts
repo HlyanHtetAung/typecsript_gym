@@ -7,7 +7,7 @@ import CreateMember from './CreateMember';
 import CreatePlan from './CreatePlan';
 import CreateTrainer from './CreateTrainer';
 import ClassDetail from './ClassDetail';
-
+import ClassStatusDetail from './ClassStatusDetail';
 export {
   Home,
   CreateClass,
@@ -18,4 +18,5 @@ export {
   CreatePlan,
   CreateTrainer,
   ClassDetail,
+  ClassStatusDetail,
 };

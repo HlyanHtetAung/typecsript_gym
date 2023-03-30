@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import InputBoxTag from "../components/InputBoxTag";
-import { STYLES } from "../styles";
+import React, { useState } from 'react';
+import InputBoxTag from '../components/InputBoxTag';
+import { STYLES } from '../styles';
 
 // about
 // name
 // image
 
 const CreateTrainer = () => {
-  const [trainerName, setTrainerName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [trainerImage, setTrainerImage] = useState("");
+  const [trainerName, setTrainerName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [trainerImage, setTrainerImage] = useState('');
   const [trainerImageFile, setTrainerImageFile] = useState<File | null>(null);
 
   const selectImageHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +24,7 @@ const CreateTrainer = () => {
   const removeImageHandle = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    setTrainerImage("");
+    setTrainerImage('');
     setTrainerImageFile(null);
   };
 
@@ -32,13 +32,12 @@ const CreateTrainer = () => {
     const formData = new FormData();
 
     if (trainerImageFile) {
-      formData.append("file", trainerImageFile);
+      formData.append('file', trainerImageFile);
     }
-    formData.append("name", trainerName);
-    formData.append("description", description);
-
-    await fetch("https://menava1999.pythonanywhere.com/trainer/add", {
-      method: "POST",
+    formData.append('name', trainerName);
+    formData.append('description', description);
+    await fetch(`${import.meta.env.VITE_HOST_URL}/trainer/add`, {
+      method: 'POST',
       body: formData,
     })
       .then((res) => console.log(res))

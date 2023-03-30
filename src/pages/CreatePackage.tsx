@@ -46,6 +46,7 @@ const CreatePackage = () => {
         .includes(value.toLocaleLowerCase().replace(/\s/gm, ''))
     );
   };
+
   const filterGroupTypeHandle = () => {
     return groupTypes;
   };
@@ -72,7 +73,7 @@ const CreatePackage = () => {
       },
       body: JSON.stringify({
         package_name: packageName,
-        package_type: packageData.selectedGroupType.id,
+        package_type: packageData.selectedGroupType.groupTypeName,
         category_id: packageData.selectedCategory.id,
         plan_id: packageData.selectedPlan.id,
       }),

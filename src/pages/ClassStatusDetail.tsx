@@ -5,7 +5,7 @@ import { STYLES } from '../styles';
 const ClassStatusDetail = () => {
   const { packageId, trainerId } = useParams();
   const [classStatus, setClassStauts] = useState<any[]>([]);
-  console.log(classStatus);
+
   useEffect(() => {
     fetch(
       `${
@@ -22,7 +22,7 @@ const ClassStatusDetail = () => {
     >
       <div className="flex justify-between items-center my-[20px]">
         <h2 className="text-[20px] font-bold">
-          {classStatus[0]?.classes[0].trainer_id.name}
+          {classStatus[0]?.classes[0].trainer_id.name}'s Class
         </h2>
         <div className="flex justify-between  rounded-md cursor-pointer">
           <div className="flex items-center gap-[5px] rounded-md">
@@ -37,7 +37,7 @@ const ClassStatusDetail = () => {
       </div>
       {classStatus?.map((clsStatusDetail: any, index) => (
         <div
-          className="bg-gray-200 rounded-md p-[10px] drop-shadow-lg my-[20px]"
+          className="bg-gray-200 rounded-md p-[15px] drop-shadow-lg my-[20px]"
           key={index}
         >
           <div className="flex items-center justify-between">
@@ -48,13 +48,16 @@ const ClassStatusDetail = () => {
               {clsStatusDetail['date day']}
             </h2>
           </div>
-          <div className="mt-[10px]">
+          <div className="mt-[15px] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-[15px]">
             {clsStatusDetail.classes.map((cls: any) => (
-              <div key={cls.id}>
-                <h3>
+              <div
+                key={cls.id}
+                className="bg-white px-[10px] py-[15px] rounded-md flex flex-col items-center gap-[10px] cursor-pointer"
+              >
+                <h3 className="text-center font-semibold">
                   {cls.from_time} - {cls.to_time}
                 </h3>
-                <p>{cls.people}</p>
+                <p className="text-gray-500">{cls.people}</p>
               </div>
             ))}
           </div>

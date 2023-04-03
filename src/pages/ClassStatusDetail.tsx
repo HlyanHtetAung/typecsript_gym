@@ -6,7 +6,7 @@ const ClassStatusDetail = () => {
   const { packageId, trainerId } = useParams();
   const [classStatus, setClassStauts] = useState<any[]>([]);
 
-  useEffect(() => {
+  const fetchClassStatusDetail = () => {
     fetch(
       `${
         import.meta.env.VITE_HOST_URL
@@ -14,7 +14,11 @@ const ClassStatusDetail = () => {
     )
       .then((res) => res.json())
       .then((data) => setClassStauts(data.data));
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchClassStatusDetail();
+  }, [packageId, trainerId]);
 
   return (
     <div className="bg-bgBlack h-full py-[20px]">

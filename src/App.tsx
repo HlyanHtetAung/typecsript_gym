@@ -16,6 +16,7 @@ import { Navbar } from './components/index';
 import { PILATES_DETAIL, YOGA_DETAIL } from './assets/content';
 import AboutUs from './pages/AboutUs';
 import ClientClasses from './pages/ClientClasses';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             path="classStatusDetail/:packageId/:trainerId"
             element={<ClassStatusDetail />}
           />
+          <Route path="login" element={<Login />} />
           {/* Admin Side */}
           <Route path="createClass" element={<CreateClass />} />
           <Route path="editClass" element={<CreateClass edit />} />

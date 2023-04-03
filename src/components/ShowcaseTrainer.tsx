@@ -4,6 +4,7 @@ import { useGetTrainers } from '../customHooks';
 
 const ShowcaseTrainer = () => {
   const { trainers } = useGetTrainers();
+
   return (
     <section id="trainer-section" className="w-full bg-bgWhite">
       <div

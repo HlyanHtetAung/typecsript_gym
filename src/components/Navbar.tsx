@@ -66,12 +66,14 @@ const Navbar = () => {
               </p>
             </li>
           </Link>
-          <button
-            className="text-white font-semibold border border-[#C7C0AD] py-[5px] px-[10px] 
+          <Link to="/login">
+            <button
+              className="font-semibold border border-[#C7C0AD] py-[5px] px-[10px] 
           rounded-md text-[#C7C0AD] text-[15px] hover:bg-[#C7C0AD] hover:text-black hover:border-transparent duration-300"
-          >
-            SignIn
-          </button>
+            >
+              Login
+            </button>
+          </Link>
         </ul>
         {/* smallScreenNavLinks */}
         <div ref={closeOpenIconWrapperRef} className="cursor-pointer sm:hidden">

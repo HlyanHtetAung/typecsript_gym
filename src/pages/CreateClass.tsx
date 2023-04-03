@@ -1,12 +1,7 @@
 import { STYLES } from '../styles';
-import {
-  useGetTrainers,
-  useGetCategories,
-  useGetPackages,
-} from '../customHooks/index';
+import { useGetTrainers, useGetPackages } from '../customHooks/index';
 import DropdownInputTag from '../components/DropdownInputTag';
 import { useState, useCallback, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import TimeSelector from '../components/TimeSelector';
 import dayjs, { Dayjs } from 'dayjs';
 

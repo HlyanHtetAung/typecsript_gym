@@ -17,8 +17,11 @@ import { PILATES_DETAIL, YOGA_DETAIL } from './assets/content';
 import AboutUs from './pages/AboutUs';
 import ClientClasses from './pages/ClientClasses';
 import Login from './pages/Login';
+import { useAppSelector } from './stores/hooks';
 
 function App() {
+  const USER_DATA: any = useAppSelector((state) => state.currentUser);
+  console.log(USER_DATA.userData);
   return (
     <div>
       <Navbar />

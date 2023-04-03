@@ -21,7 +21,7 @@ const ClassStatusDetail = () => {
   }, [packageId, trainerId]);
 
   return (
-    <div className="bg-bgBlack h-full py-[20px]">
+    <div className="bg-bgBlack min-h-screen py-[20px]">
       <div
         className={`${STYLES.max_width} ${STYLES.margin_center} ${STYLES.paddingX} `}
       >

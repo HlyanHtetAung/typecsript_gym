@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import { STYLES } from "../styles";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { RxCross2 } from "react-icons/rx";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useRef } from 'react';
+import { STYLES } from '../styles';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { RxCross2 } from 'react-icons/rx';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState<boolean>(false);
@@ -21,9 +21,9 @@ const Navbar = () => {
         setShowNavbar(false);
       }
     };
-    window.addEventListener("click", closeMobileNavHandle);
+    window.addEventListener('click', closeMobileNavHandle);
 
-    return () => window.removeEventListener("click", closeMobileNavHandle);
+    return () => window.removeEventListener('click', closeMobileNavHandle);
   }, []);
 
   return (
@@ -84,9 +84,9 @@ const Navbar = () => {
         <ul
           ref={subNavWrapperRef}
           className={`${
-            !showNavbar && "opacity-0 pointer-events-none"
+            !showNavbar && 'opacity-0 pointer-events-none'
           } absolute ${
-            showNavbar ? "top-[80px]" : "top-[50px]"
+            showNavbar ? 'top-[80px]' : 'top-[50px]'
           } z-50 duration-500 md:right-[15px] right-[20px] w-[250px] 
           bg-green-500 rounded-md p-[10px] bg-navbarColor shadow-lg shadow-indigo-500/50`}
         >

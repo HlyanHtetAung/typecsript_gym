@@ -3,14 +3,14 @@ import { STYLES } from '../styles';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { RxCross2 } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../stores/hooks';
 
 const Navbar = () => {
+  const { userData }: any = useAppSelector((state) => state.currentUser);
+
   const [showNavbar, setShowNavbar] = useState<boolean>(false);
   const subNavWrapperRef = useRef<HTMLUListElement>(null);
   const closeOpenIconWrapperRef = useRef<HTMLDivElement>(null);
-  const navbarToggleHandle = () => {
-    setShowNavbar((prev) => !prev);
-  };
 
   useEffect(() => {
     const closeMobileNavHandle = ({ target }: MouseEvent) => {
@@ -22,7 +22,6 @@ const Navbar = () => {
       }
     };
     window.addEventListener('click', closeMobileNavHandle);
-
     return () => window.removeEventListener('click', closeMobileNavHandle);
   }, []);
 
@@ -52,28 +51,42 @@ const Navbar = () => {
               </p>
             </li>
           </Link>
-          <Link to="/aboutUs">
-            <li>
-              <p className="font-poppins text-white text-[16px] font-semibold">
-                Profile
-              </p>
-            </li>
-          </Link>
-          <Link to="/aboutUs">
-            <li>
-              <p className="font-poppins text-white text-[16px] font-semibold">
-                Dashboard
-              </p>
-            </li>
-          </Link>
-          <Link to="/login">
+          {userData ? (
+            <Link to="/profile">
+              <li>
+                <p className="font-poppins text-white text-[16px] font-semibold">
+                  Profile
+                </p>
+              </li>
+            </Link>
+          ) : null}
+          {userData?.membership_id === 'admin' ? (
+            <Link to="/adminDashboard">
+              <li>
+                <p className="font-poppins text-white text-[16px] font-semibold">
+                  Dashboard
+                </p>
+              </li>
+            </Link>
+          ) : null}
+
+          {!userData ? (
+            <Link to="/login">
+              <button
+                className="font-semibold border border-[#C7C0AD] py-[5px] px-[10px] 
+          rounded-md text-[#C7C0AD] text-[15px] hover:bg-[#C7C0AD] hover:text-black hover:border-transparent duration-300"
+              >
+                Login
+              </button>
+            </Link>
+          ) : (
             <button
               className="font-semibold border border-[#C7C0AD] py-[5px] px-[10px] 
           rounded-md text-[#C7C0AD] text-[15px] hover:bg-[#C7C0AD] hover:text-black hover:border-transparent duration-300"
             >
-              Login
+              Logout
             </button>
-          </Link>
+          )}
         </ul>
         {/* smallScreenNavLinks */}
         <div ref={closeOpenIconWrapperRef} className="cursor-pointer sm:hidden">
@@ -90,7 +103,7 @@ const Navbar = () => {
           } absolute ${
             showNavbar ? 'top-[80px]' : 'top-[50px]'
           } z-50 duration-500 md:right-[15px] right-[20px] w-[250px] 
-          bg-green-500 rounded-md p-[10px] bg-navbarColor shadow-lg shadow-indigo-500/50`}
+           rounded-md p-[10px] bg-navbarColor shadow-lg shadow-indigo-500/50`}
         >
           <Link to="/aboutUs">
             <li className="py-[8px] px-[4px] font-poppins text-white hover:bg-gray-200 rounded-sm duration-200 cursor-pointer hover:text-black">
@@ -114,13 +127,23 @@ const Navbar = () => {
               Admin Dashboard
             </li>
           </Link>
-
-          <button
-            className="mt-[10px] w-full text-white font-semibold border border-[#C7C0AD] py-[5px] px-[10px] 
+          {!userData ? (
+            <Link to="/login">
+              <button
+                className="mt-[10px] w-full  font-semibold border border-[#C7C0AD] py-[5px] px-[10px] 
           rounded-md text-[#C7C0AD] text-[15px] hover:bg-[#C7C0AD] hover:text-black hover:border-transparent duration-300"
-          >
-            SignIn
-          </button>
+              >
+                Login
+              </button>
+            </Link>
+          ) : (
+            <button
+              className="mt-[10px] w-full  font-semibold border border-[#C7C0AD] py-[5px] px-[10px] 
+          rounded-md text-[#C7C0AD] text-[15px] hover:bg-[#C7C0AD] hover:text-black hover:border-transparent duration-300"
+            >
+              Logout
+            </button>
+          )}
         </ul>
       </div>
     </nav>

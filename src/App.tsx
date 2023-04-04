@@ -18,10 +18,11 @@ import AboutUs from './pages/AboutUs';
 import ClientClasses from './pages/ClientClasses';
 import Login from './pages/Login';
 import { useAppSelector } from './stores/hooks';
+import ViewMembers from './pages/ViewMembers';
 
 function App() {
-  const USER_DATA: any = useAppSelector((state) => state.currentUser);
-  console.log(USER_DATA.userData);
+  const { userData }: any = useAppSelector((state) => state.currentUser);
+  console.log(userData);
   return (
     <div>
       <Navbar />
@@ -52,6 +53,7 @@ function App() {
           <Route path="createMember" element={<CreateMember />} />
           <Route path="createPlan" element={<CreatePlan />} />
           <Route path="createTrainer" element={<CreateTrainer />} />
+          <Route path="viewMembers" element={<ViewMembers />} />
         </Route>
       </Routes>
     </div>

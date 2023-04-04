@@ -66,8 +66,9 @@ const AboutUs = () => {
         >
           <h2 className={`${STYLES.heading2} my-[10px]`}>Facilities</h2>
           <div className="grid sm:grid-cols-2 gap-[10px]">
-            {FACILITIES_PHOTO.map((photo) => (
+            {FACILITIES_PHOTO.map((photo, index) => (
               <img
+                key={index}
                 src={photo}
                 className="w-full h-[350px] sm:h-[500px] object-cover cursor-pointer rounded-sm"
               />

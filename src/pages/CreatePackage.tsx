@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import DropdownInputTag from '../components/DropdownInputTag';
 import InputBoxTag from '../components/InputBoxTag';
 import { useGetCategories, useGetPlans } from '../customHooks';

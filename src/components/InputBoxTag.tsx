@@ -4,15 +4,24 @@ type inputBoxTagProp = {
   value: string;
   setValue: (value: string) => void;
   placholder?: string;
+  numberInput?: boolean;
+  disableInput?: boolean;
 };
 
-const InputBoxTag = ({ value, setValue, placholder }: inputBoxTagProp) => {
+const InputBoxTag = ({
+  value,
+  setValue,
+  placholder,
+  numberInput,
+  disableInput,
+}: inputBoxTagProp) => {
   return (
     <div className="py-[10px] px-[10px] rounded-md bg-secondary">
       <input
+        disabled={disableInput}
         onChange={(e) => setValue(e.target.value)}
         value={value}
-        type="text"
+        type={numberInput ? 'number' : 'text'}
         className="w-full outline-none bg-transparent text-white"
         placeholder={placholder}
       />

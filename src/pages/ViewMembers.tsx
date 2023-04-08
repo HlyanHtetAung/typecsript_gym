@@ -1,24 +1,42 @@
 import { STYLES } from '../styles';
 import { CiSearch } from 'react-icons/ci';
-import { FiPlus } from 'react-icons/fi';
 import InputBoxTag from '../components/InputBoxTag';
 import { useState, useEffect } from 'react';
 import ClientCurrentPackages from '../components/ClientCurrentPackages';
+
 const ViewMembers = () => {
-  const [packageName, setPackageName] = useState<string>('Pilates');
-  const [point, setPoint] = useState<string>('');
+  const [packageName, setPackageName] = useState<string>('');
+  const [packageType, setPackageType] = useState('Select');
+  const [currentActivePackageId, setCurrentActivePackage] = useState<any>();
+  const [point, setPoint] = useState<any>(0);
+  const [customerIndividualPackages, setCustomerIndividualPackages] = useState<
+    []
+  >([]);
+  const [clickedSelectPackage, setClickedSelectPackage] = useState<any>(false);
+  const [customerGrouplPackages, setCustomerGroupPackages] = useState<[]>([]);
 
   const fetchCustomerCurrentPackageData = async () => {
     const res = await fetch(
       `${import.meta.env.VITE_HOST_URL}/customer-package/get?customer_id=1`
     );
     const data = await res.json();
-    console.log(data);
+    setCustomerIndividualPackages(
+      data.filter((dat: any) => dat.package_id.package_type === 'Individual')
+    );
+    setCustomerGroupPackages(
+      data.filter((dat: any) => dat.package_id.package_type === 'Group')
+    );
   };
 
   useEffect(() => {
     fetchCustomerCurrentPackageData();
   }, []);
+
+  const refillPointHandle = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('soijselkrj');
+  };
+
   return (
     <div
       className={`${STYLES.max_width} ${STYLES.margin_center} ${STYLES.paddingX}`}
@@ -39,13 +57,30 @@ const ViewMembers = () => {
           </div>
           <div className="mt-[15px] flex gap-[20px] items-center">
             <div className="flex-1 flex flex-col gap-[10px]">
-              <ClientCurrentPackages packageName="Individual Packages" />
-              <ClientCurrentPackages packageName="Group Packages" />
+              <ClientCurrentPackages
+                packageName="Individual Packages"
+                customerCurrentPackages={customerIndividualPackages}
+                setPackageName={setPackageName}
+                setPackageType={setPackageType}
+                setCurrentActivePackage={setCurrentActivePackage}
+                currentActivePackageId={currentActivePackageId}
+              />
+              <ClientCurrentPackages
+                packageName="Group Packages"
+                customerCurrentPackages={customerGrouplPackages}
+                setPackageName={setPackageName}
+                setPackageType={setPackageType}
+                setCurrentActivePackage={setCurrentActivePackage}
+                currentActivePackageId={currentActivePackageId}
+              />
             </div>
             {/* form */}
-            <form className="flex-1 bg-white p-[20px] rounded-md flex flex-col gap-[20px] h-max">
+            <form
+              onSubmit={refillPointHandle}
+              className="flex-1 bg-white p-[20px] rounded-md flex flex-col gap-[20px] h-max"
+            >
               <h3 className="text-center uppercase font-poppins font-bold text-secondary">
-                Individual
+                {packageType}
               </h3>
               <InputBoxTag
                 setValue={setPackageName}
@@ -58,9 +93,17 @@ const ViewMembers = () => {
                 placholder="Enter a refill point"
                 numberInput
               />
-              <button className="w-full bg-primary py-[10px] rounded-md font-poppins font-bold text-secondary">
-                Refill Point
-              </button>
+              <div className="flex gap-[20px] justify-between">
+                <button className="w-full bg-primary py-[10px] rounded-md font-poppins font-bold text-secondary">
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="w-full bg-primary py-[10px] rounded-md font-poppins font-bold text-secondary"
+                >
+                  Refill Point
+                </button>
+              </div>
             </form>
           </div>
         </div>

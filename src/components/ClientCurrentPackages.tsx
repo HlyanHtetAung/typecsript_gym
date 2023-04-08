@@ -5,14 +5,23 @@ import { useState, useEffect } from 'react';
 
 type inputBoxTagProp = {
   packageName: string;
-  //   currentPackages: any;
+  customerCurrentPackages: any;
+  setPackageName: any;
+  setPackageType: any;
+  setCurrentActivePackage: any;
+  currentActivePackageId: any;
 };
 
-const ClientCurrentPackages = ({ packageName }: inputBoxTagProp) => {
+const ClientCurrentPackages = ({
+  packageName,
+  customerCurrentPackages,
+  setPackageName,
+  setPackageType,
+  setCurrentActivePackage,
+  currentActivePackageId,
+}: inputBoxTagProp) => {
   const [openPackages, setOpenPackages] = useState<Boolean>(false);
   const [unPickPackages, setunPickPackages] = useState<[]>([]);
-
-  const currentPackages: any = [];
 
   const fetchCurrentPackages = async () => {
     const res = await fetch(`${import.meta.env.VITE_HOST_URL}/package/get`);
@@ -24,19 +33,19 @@ const ClientCurrentPackages = ({ packageName }: inputBoxTagProp) => {
       (packageName === 'Group Packages' &&
         data.filter((dat: any) => dat.package_type === 'Group'));
 
-    const finalFilteredResult =
-      currentPackages.length > 0
-        ? filteredResult.filter((fltRes: any) =>
-            currentPackages.some((curPack: any) => curPack.id !== fltRes.id)
-          )
-        : filteredResult;
+    const finalFilteredResult = filteredResult.filter(
+      (fltRes: any) =>
+        !customerCurrentPackages.find(
+          (curPack: any) => curPack.package_id.id === fltRes.id
+        )
+    );
 
     setunPickPackages(finalFilteredResult);
   };
 
   useEffect(() => {
     fetchCurrentPackages();
-  }, []);
+  }, [customerCurrentPackages]);
 
   return (
     <div className="flex flex-col gap-[5px]">
@@ -66,20 +75,37 @@ const ClientCurrentPackages = ({ packageName }: inputBoxTagProp) => {
           ))}
         </div>
       ) : null}
-
       <div className="bg-bgBlack p-[10px] rounded-md flex flex-col gap-[10px]">
-        <div className="flex justify-between bg-gray-200 p-[10px] rounded-sm cursor-pointer">
-          <p className="text-bgBlack font-bold text-[15px]">Pilates</p>
-          <p className="text-bgBlack font-bold text-[15px]">50</p>
-        </div>
-        <div className="flex justify-between bg-gray-200 p-[10px] rounded-sm cursor-pointer">
-          <p className="text-bgBlack font-bold text-[15px]">Pilates</p>
-          <p className="text-bgBlack font-bold text-[15px]">50</p>
-        </div>
-        <div className="flex justify-between bg-gray-200 p-[10px] rounded-sm cursor-pointer">
-          <p className="text-bgBlack font-bold text-[15px]">Pilates</p>
-          <p className="text-bgBlack font-bold text-[15px]">50</p>
-        </div>
+        {customerCurrentPackages.map((cusPack: any) => (
+          <div
+            onClick={() => {
+              setPackageName(cusPack.package_id.package_name);
+              setPackageType(cusPack.package_id.package_type);
+              setCurrentActivePackage(cusPack.id);
+            }}
+            key={cusPack.id}
+            className={`flex justify-between ${
+              currentActivePackageId === cusPack.id
+                ? 'bg-green-500 '
+                : 'bg-gray-200'
+            } p-[10px] rounded-sm cursor-pointer`}
+          >
+            <p
+              className={`${
+                currentActivePackageId === cusPack.id ? 'text-white' : null
+              } text-bgBlack font-bold text-[15px]`}
+            >
+              {cusPack.package_id.package_name}
+            </p>
+            <p
+              className={`${
+                currentActivePackageId === cusPack.id ? 'text-white' : null
+              } text-bgBlack font-bold text-[15px]`}
+            >
+              {cusPack.points}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );

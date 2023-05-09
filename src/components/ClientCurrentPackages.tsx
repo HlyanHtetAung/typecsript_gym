@@ -10,6 +10,9 @@ type inputBoxTagProp = {
   setPackageType: any;
   setCurrentActivePackage: any;
   currentActivePackageId: any;
+  setToUpdataPackageId: any;
+  refetchFunction: any;
+  setPackageAdd: any;
 };
 
 const ClientCurrentPackages = ({
@@ -19,6 +22,9 @@ const ClientCurrentPackages = ({
   setPackageType,
   setCurrentActivePackage,
   currentActivePackageId,
+  setPackageAdd,
+  setToUpdataPackageId,
+  refetchFunction,
 }: inputBoxTagProp) => {
   const [openPackages, setOpenPackages] = useState<Boolean>(false);
   const [unPickPackages, setunPickPackages] = useState<[]>([]);
@@ -47,6 +53,18 @@ const ClientCurrentPackages = ({
     fetchCurrentPackages();
   }, [customerCurrentPackages]);
 
+  const addPackageToCustomerPackageList = async (packageId: string) => {
+    const res = await fetch(
+      `${
+        import.meta.env.VITE_HOST_URL
+      }/customer-package/add?customer_id=2&package_id=${packageId}`
+    );
+    const data = await res.json();
+    if (data.customer_id) {
+      refetchFunction(data.customer_id);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-[5px]">
       <div className="flex items-center justify-between">
@@ -67,6 +85,9 @@ const ClientCurrentPackages = ({
         <div className="flex flex-wrap gap-[5px] my-[5px]">
           {unPickPackages.map((pack: any) => (
             <p
+              onClick={() =>
+                addPackageToCustomerPackageList(pack.id.toString())
+              }
               className="px-[10px] py-[5px] bg-bgBlack text-primary rounded-full text-[14px] font-semibold cursor-pointer hover:bg-primary hover:text-white"
               key={pack.id}
             >
@@ -82,6 +103,7 @@ const ClientCurrentPackages = ({
               setPackageName(cusPack.package_id.package_name);
               setPackageType(cusPack.package_id.package_type);
               setCurrentActivePackage(cusPack.id);
+              setToUpdataPackageId(cusPack.package_id.id);
             }}
             key={cusPack.id}
             className={`flex justify-between ${

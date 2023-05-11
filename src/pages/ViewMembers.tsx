@@ -10,6 +10,7 @@ const ViewMembers = () => {
   const [packageType, setPackageType] = useState('Select');
   const [currentActivePackageId, setCurrentActivePackage] = useState<any>();
   const [point, setPoint] = useState<any>(0);
+  const [soldAmount, setSoldAmount] = useState<any>(0);
   const [customerIndividualPackages, setCustomerIndividualPackages] = useState<
     []
   >([]);
@@ -19,6 +20,7 @@ const ViewMembers = () => {
   const [toUpdatePackageId, setToUpdataPackageId] = useState<any>();
   const [currentCustomerId, setCurrentCustomerId] = useState<any>('');
   const [currentCustomerName, setCurrentCustomerName] = useState<any>('');
+
   const fetchCustomerCurrentPackageData = async (id: any) => {
     const res = await fetch(
       `${import.meta.env.VITE_HOST_URL}/customer-package/get?customer_id=${id}`
@@ -36,10 +38,6 @@ const ViewMembers = () => {
     );
   };
 
-  // useEffect(() => {
-  //   fetchCustomerCurrentPackageData(currentCustomerId);
-  // }, [packageAdd]);
-
   const refillPointHandle = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!currentActivePackageId) {
@@ -53,7 +51,7 @@ const ViewMembers = () => {
       const res = await fetch(
         `${
           import.meta.env.VITE_HOST_URL
-        }/customer-package/update?customer_id=2&package_id=${toUpdatePackageId}&points=${point}`
+        }/customer-package/update?customer_id=${currentCustomerId}&package_id=${toUpdatePackageId}&points=${point}&amount=${soldAmount}`
       );
 
       const data = await res.json();
@@ -65,6 +63,7 @@ const ViewMembers = () => {
         setCurrentActivePackage('');
         setPoint(0);
         setToUpdataPackageId('');
+        setSoldAmount(0);
       }
     }
   };
@@ -125,7 +124,7 @@ const ViewMembers = () => {
               {/* form */}
               <form
                 onSubmit={refillPointHandle}
-                className="flex-1 bg-white p-[20px] rounded-md flex flex-col gap-[20px] h-max"
+                className="flex-1 bg-white p-[20px] rounded-md flex flex-col gap-[10px] h-max"
               >
                 <h3 className="text-center uppercase font-poppins font-bold text-secondary">
                   {packageType}
@@ -135,10 +134,18 @@ const ViewMembers = () => {
                   value={packageName}
                   disableInput
                 />
+                <h3 className="font-bold">Point</h3>
                 <InputBoxTag
                   setValue={setPoint}
                   value={point}
                   placholder="Enter a refill point"
+                  numberInput
+                />
+                <h3 className="font-bold">Amount</h3>
+                <InputBoxTag
+                  setValue={setSoldAmount}
+                  value={soldAmount}
+                  placholder="Enter an amount"
                   numberInput
                 />
                 <div className="flex gap-[20px] justify-between">
@@ -148,6 +155,7 @@ const ViewMembers = () => {
                       setPackageType('');
                       setCurrentActivePackage('');
                       setPoint(0);
+                      setSoldAmount(0);
                     }}
                     type="button"
                     className="w-full bg-primary py-[10px] rounded-md font-poppins font-bold text-secondary"

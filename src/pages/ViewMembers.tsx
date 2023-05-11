@@ -108,6 +108,7 @@ const ViewMembers = () => {
                   setPackageAdd={setPackageAdd}
                   setToUpdataPackageId={setToUpdataPackageId}
                   refetchFunction={fetchCustomerCurrentPackageData}
+                  currentCustomerId={currentCustomerId}
                 />
                 <ClientCurrentPackages
                   packageName="Group Packages"
@@ -119,6 +120,7 @@ const ViewMembers = () => {
                   setPackageAdd={setPackageAdd}
                   setToUpdataPackageId={setToUpdataPackageId}
                   refetchFunction={fetchCustomerCurrentPackageData}
+                  currentCustomerId={currentCustomerId}
                 />
               </div>
               {/* form */}

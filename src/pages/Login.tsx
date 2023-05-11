@@ -9,6 +9,7 @@ const Login = () => {
   const [passwordInput, setPasswordInput] = useState<string | null>('');
   const dispatch = useAppDispatch();
   const naviagate = useNavigate();
+
   const loginHandle = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -23,6 +24,15 @@ const Login = () => {
         }),
       });
       const data = await res.json();
+
+      const customerPoint = await fetch(
+        `${import.meta.env.VITE_HOST_URL}/customer-package/get?customer_id=${
+          data.id
+        }`
+      );
+
+      const customerPointData = await customerPoint.json();
+      console.log('Customer Point', customerPointData);
       dispatch(setUserData({ data }));
       naviagate('/');
     } catch (error: any) {

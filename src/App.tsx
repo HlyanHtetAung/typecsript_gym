@@ -22,6 +22,7 @@ import ViewMembers from './pages/ViewMembers';
 
 function App() {
   const { userData }: any = useAppSelector((state) => state.currentUser);
+  console.log('userData', userData);
   // console.log(userData);
   return (
     <div>

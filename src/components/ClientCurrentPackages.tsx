@@ -13,6 +13,7 @@ type inputBoxTagProp = {
   setToUpdataPackageId: any;
   refetchFunction: any;
   setPackageAdd: any;
+  currentCustomerId: any;
 };
 
 const ClientCurrentPackages = ({
@@ -25,6 +26,7 @@ const ClientCurrentPackages = ({
   setPackageAdd,
   setToUpdataPackageId,
   refetchFunction,
+  currentCustomerId,
 }: inputBoxTagProp) => {
   const [openPackages, setOpenPackages] = useState<Boolean>(false);
   const [unPickPackages, setunPickPackages] = useState<[]>([]);
@@ -57,7 +59,7 @@ const ClientCurrentPackages = ({
     const res = await fetch(
       `${
         import.meta.env.VITE_HOST_URL
-      }/customer-package/add?customer_id=2&package_id=${packageId}`
+      }/customer-package/add?customer_id=${currentCustomerId}&package_id=${packageId}`
     );
     const data = await res.json();
     if (data.customer_id) {

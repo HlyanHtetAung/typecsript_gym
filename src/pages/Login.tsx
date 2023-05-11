@@ -32,8 +32,15 @@ const Login = () => {
       );
 
       const customerPointData = await customerPoint.json();
-      console.log('Customer Point', customerPointData);
-      dispatch(setUserData({ data }));
+      console.log(customerPointData);
+      const customerPoints = customerPointData.map((cus: any) => ({
+        packge_id: cus['package_id'].id,
+        currentPoints: cus.points,
+      }));
+
+      dispatch(
+        setUserData({ data: { ...data, currentPointsAry: customerPoints } })
+      );
       naviagate('/');
     } catch (error: any) {
       console.log(error.message);

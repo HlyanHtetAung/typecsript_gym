@@ -15,7 +15,7 @@ const ClassStatusDetail = () => {
       .then((res) => res.json())
       .then((data) => setClassStauts(data.data));
   };
-
+  console.log('classStatusDetail', classStatus);
   useEffect(() => {
     fetchClassStatusDetail();
   }, [packageId, trainerId]);

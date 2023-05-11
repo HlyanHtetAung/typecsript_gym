@@ -4,7 +4,7 @@ import { useGetClasses } from '../customHooks';
 import { STYLES } from '../styles';
 const ClientClasses = () => {
   const { classes } = useGetClasses();
-  console.log(classes);
+
   return (
     <div
       className={`${STYLES.max_width} ${STYLES.margin_center} ${STYLES.paddingX} ${STYLES.paddingY}`}

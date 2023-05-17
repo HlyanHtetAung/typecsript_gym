@@ -43,6 +43,7 @@ const ViewMembers = () => {
     if (!currentActivePackageId) {
       return;
     }
+
     if (point <= 0) {
       return;
     }
@@ -51,7 +52,7 @@ const ViewMembers = () => {
       const res = await fetch(
         `${
           import.meta.env.VITE_HOST_URL
-        }/customer-package/update?customer_id=${currentCustomerId}&package_id=${toUpdatePackageId}&points=${point}&amount=${soldAmount}`
+        }/customer-package/update?customer_id=${currentCustomerId}&package_id=${toUpdatePackageId}&points=${point}&amount=${soldAmount}&usage_type=buy`
       );
 
       const data = await res.json();

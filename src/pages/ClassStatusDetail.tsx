@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { STYLES } from '../styles';
-import { useAppSelector } from '../stores/hooks';
+import { useAppDispatch, useAppSelector } from '../stores/hooks';
+import {
+  addBookedClassToUserAccount,
+  removeBookedClassFromUserAccount,
+} from '../stores/userSlice';
 
 const ClassStatusDetail = () => {
   const { packageId, trainerId } = useParams();
   const [classStatus, setClassStauts] = useState<any[]>([]);
   const { userData }: any = useAppSelector((state) => state.currentUser);
+  const dispatch = useAppDispatch();
 
-  console.log('Userdata', userData);
   const fetchClassStatusDetail = () => {
     fetch(
       `${
@@ -18,10 +22,10 @@ const ClassStatusDetail = () => {
       .then((res) => res.json())
       .then((data) => setClassStauts(data.data));
   };
-  console.log('classStatusDetail', classStatus);
+  // console.log('classStatusDetail', classStatus);
   useEffect(() => {
     fetchClassStatusDetail();
-  }, [packageId, trainerId]);
+  }, [packageId, trainerId, userData]);
 
   const userCurrentPointOnCurrentPackge = () => {
     const points = userData?.currentPointsAry.find(
@@ -34,19 +38,7 @@ const ClassStatusDetail = () => {
     return null;
   };
 
-  const ary = [
-    {
-      date: 120320,
-      booked_class: [],
-    },
-    {
-      date: 120320,
-      booked_class: [],
-    },
-  ];
   const bookClassHandle = (classId: any, dateDay: any, packId: any) => {
-    console.log('classId', classId);
-    console.log('userID', userData.id);
     fetch(
       `${import.meta.env.VITE_HOST_URL}/schedule/add?customer_id=${
         userData.id
@@ -60,31 +52,51 @@ const ClassStatusDetail = () => {
       }&package_id=${packId}&points=1&amount=200&usage_type=sell`
     )
       .then((res) => res.json())
-      .then((data) => console.log('datatatatat', data));
+      .then((data) => {
+        dispatch(
+          addBookedClassToUserAccount({
+            data: {
+              class_date: dateDay.split(' ')[0],
+              class_id: classId,
+              status: 'Booked',
+            },
+          })
+        );
+      });
   };
 
-  const checkBookOrNotHandle = (
-    dateDay: any,
-    cls: any,
-    classStatusDetail: any
-  ) => {
+  const checkBookOrNotHandle = (dateDay: any, cls: any) => {
     let book = false;
-    const concatedAry: any = [];
+
     if (userData) {
-      Object.values(userData.booked_classes).forEach((bk_class: any) =>
-        bk_class.forEach((book_class: any) => concatedAry.push(book_class))
-      );
+      const copiedBookedClass = [...userData.booked_classes];
+
+      copiedBookedClass?.find(
+        (bk_class: any) =>
+          bk_class.class_id === cls.id && bk_class.class_date === dateDay
+      )
+        ? (book = true)
+        : (book = false);
     }
 
-    concatedAry.find(
-      (concAry: any) =>
-        concAry.class_date === dateDay.split(' ')[0] &&
-        concAry.class_id === cls.id
-    )
-      ? (book = true)
-      : (book = false);
-
     return book;
+  };
+
+  const unBookClassHandle = (classId: any, dateDay: any) => {
+    fetch(
+      `${import.meta.env.VITE_HOST_URL}/schedule/update?customer_id=${
+        userData.id
+      }&class_id=${classId}&date=${dateDay}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(
+          removeBookedClassFromUserAccount({
+            id: classId,
+            date: dateDay.split(' ')[0],
+          })
+        );
+      });
   };
 
   return (
@@ -132,19 +144,23 @@ const ClassStatusDetail = () => {
               {clsStatusDetail.classes.map((cls: any) => (
                 <div
                   onClick={() =>
-                    bookClassHandle(
-                      cls.id,
-                      clsStatusDetail['date day'],
-                      classStatus[0].classes[0].package_id.id
+                    checkBookOrNotHandle(
+                      clsStatusDetail['date day'].split(' ')[0],
+                      cls
                     )
+                      ? unBookClassHandle(cls.id, clsStatusDetail['date day'])
+                      : bookClassHandle(
+                          cls.id,
+                          clsStatusDetail['date day'],
+                          classStatus[0].classes[0].package_id.id
+                        )
                   }
                   key={cls.id}
                   className={`
                   ${
                     checkBookOrNotHandle(
-                      clsStatusDetail['date day'],
-                      cls,
-                      clsStatusDetail
+                      clsStatusDetail['date day'].split(' ')[0],
+                      cls
                     )
                       ? 'bg-green-800'
                       : 'bg-bgBlack'
@@ -154,7 +170,14 @@ const ClassStatusDetail = () => {
                   <h3 className="text-center font-semibold text-white">
                     {cls.from_time} - {cls.to_time}
                   </h3>
-                  <p className="text-gray-400">{cls.people}</p>
+                  <p className="text-gray-400">
+                    {checkBookOrNotHandle(
+                      clsStatusDetail['date day'].split(' ')[0],
+                      cls
+                    )
+                      ? 'Already booked'
+                      : cls.people}
+                  </p>
                 </div>
               ))}
             </div>

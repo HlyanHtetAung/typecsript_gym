@@ -22,7 +22,7 @@ const Navbar = () => {
       }
     };
     window.addEventListener('click', closeMobileNavHandle);
-    return () => window.removeEventListener('click', closeMobileNavHandle);
+  return () => window.removeEventListener('click', closeMobileNavHandle);
   }, []);
 
   return (

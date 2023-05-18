@@ -22,8 +22,7 @@ import ViewMembers from './pages/ViewMembers';
 
 function App() {
   const { userData }: any = useAppSelector((state) => state.currentUser);
-
-  // console.log(userData);
+  console.log('useraskldjasdklfj', userData);
   return (
     <div>
       <Navbar />

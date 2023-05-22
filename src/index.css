@@ -6,6 +6,9 @@
 html {
   scroll-behavior: smooth;
 }
+.max_content {
+  width: max-content;
+}
 .open_dropdown {
   overflow: hidden;
   pointer-events: none;

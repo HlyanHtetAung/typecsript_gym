@@ -2,7 +2,7 @@ export const STYLES = {
   form_max_width: 'max-w-[800px]',
   max_width: 'max-w-[1240px]',
   margin_center: 'mx-auto',
-  paddingY: 'py-[30px]',
+  paddingY: 'py-[10px]',
   paddingX: 'md:px-[15px] px-[20px]',
   formHeading: 'text-[25px] md:text-[30px] font-poppins font-extrabold',
   iconStyle: 'w-[30px] h-[30px]',

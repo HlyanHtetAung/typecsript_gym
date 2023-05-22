@@ -4,6 +4,8 @@ import { STYLES } from '../styles';
 import { useAppDispatch, useAppSelector } from '../stores/hooks';
 import {
   addBookedClassToUserAccount,
+  addPointOnUnBook,
+  reducePointOnBook,
   removeBookedClassFromUserAccount,
 } from '../stores/userSlice';
 
@@ -11,6 +13,7 @@ const ClassStatusDetail = () => {
   const { packageId, trainerId } = useParams();
   const [classStatus, setClassStauts] = useState<any[]>([]);
   const { userData }: any = useAppSelector((state) => state.currentUser);
+
   const dispatch = useAppDispatch();
 
   const fetchClassStatusDetail = () => {
@@ -62,6 +65,7 @@ const ClassStatusDetail = () => {
             },
           })
         );
+        dispatch(reducePointOnBook({ packageId }));
       });
   };
 
@@ -96,6 +100,29 @@ const ClassStatusDetail = () => {
             date: dateDay.split(' ')[0],
           })
         );
+        dispatch(
+          addPointOnUnBook({
+            packageId,
+          })
+        );
+      });
+    fetch(
+      `${import.meta.env.VITE_HOST_URL}/customer-package/update?customer_id=${
+        userData.id
+      }&package_id=${packageId}&points=1&amount=200&usage_type=cancel`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        // dispatch(
+        //   addBookedClassToUserAccount({
+        //     data: {
+        //       class_date: dateDay.split(' ')[0],
+        //       class_id: classId,
+        //       status: 'Booked',
+        //     },
+        //   })
+        // );
+        // dispatch(reducePointOnBook({ packageId }));
       });
   };
 

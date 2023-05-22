@@ -19,6 +19,7 @@ import ClientClasses from './pages/ClientClasses';
 import Login from './pages/Login';
 import { useAppSelector } from './stores/hooks';
 import ViewMembers from './pages/ViewMembers';
+import ClientProfile from './pages/ClientProfile';
 
 function App() {
   const { userData }: any = useAppSelector((state) => state.currentUser);
@@ -44,6 +45,7 @@ function App() {
             element={<ClassStatusDetail />}
           />
           <Route path="login" element={<Login />} />
+          <Route path="profile" element={<ClientProfile />} />
           {/* Admin Side */}
           <Route path="createClass" element={<CreateClass />} />
           <Route path="editClass" element={<CreateClass edit />} />

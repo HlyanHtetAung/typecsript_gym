@@ -11,7 +11,7 @@ export const useGetCategories = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  }, [categories]);
 
   return { categories, setCategories };
 };

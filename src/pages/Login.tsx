@@ -34,7 +34,8 @@ const Login = () => {
       const customerPointData = await customerPoint.json();
       console.log(customerPointData);
       const customerPoints = customerPointData.map((cus: any) => ({
-        package_id: cus['package_id'].id,
+        package_id:
+          cus['package_id'].id === undefined ? 'none' : cus['package_id'].id,
         currentPoints: cus.points,
       }));
 

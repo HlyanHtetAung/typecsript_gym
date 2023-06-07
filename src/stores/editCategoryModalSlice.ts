@@ -6,6 +6,7 @@ interface CategoryType {
   prevCategoryName: string;
   prevCategoryId: number;
   openEditCategoryModal: boolean;
+  changed: boolean;
 }
 
 // Define the initial state using that type
@@ -13,6 +14,7 @@ const initialState: CategoryType = {
   openEditCategoryModal: false,
   prevCategoryName: '',
   prevCategoryId: 0,
+  changed: false,
 };
 
 export const prevCategorySlice = createSlice({

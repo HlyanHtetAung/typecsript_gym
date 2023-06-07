@@ -8,15 +8,15 @@ import {
   selectPrevCategoryName,
 } from '../stores/editCategoryModalSlice';
 import { RootState } from '../stores/store';
+import { useGetCategories } from '../customHooks';
 
 const EditCategoryModal = () => {
   const [categoryInput, setCategoryInput] = useState<string>('');
   const prevCategoryName = useAppSelector(selectPrevCategoryName);
   const prevCategoryId = useAppSelector(selectPrevCategoryId);
+  const { setCategories } = useGetCategories();
   const dispatch = useAppDispatch();
   const editCategoryHandle = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(prevCategoryId);
-    console.log(categoryInput);
     e.preventDefault();
     const res = await fetch(
       `${
@@ -24,8 +24,8 @@ const EditCategoryModal = () => {
       }/category/update/${prevCategoryId}?title=${categoryInput}`
     );
     const data = await res.json();
-
-    console.log(data);
+    setCategories((prev: any) => [...prev]);
+    dispatch(closeCategoryModal());
   };
 
   const closeModal = () => {

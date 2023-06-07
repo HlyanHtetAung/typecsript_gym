@@ -26,6 +26,7 @@ import EditCategoryModal from './components/EditCategoryModal';
 
 function App() {
   const { userData }: any = useAppSelector((state) => state.currentUser);
+  console.log(userData);
   const editCategory = useAppSelector((state) => state.editCategory);
   return (
     <div className="relative">

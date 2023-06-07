@@ -40,8 +40,14 @@ const ClassStatusDetail = () => {
     }
     return null;
   };
-
   const bookClassHandle = (classId: any, dateDay: any, packId: any) => {
+    if (
+      userCurrentPointOnCurrentPackge() === null ||
+      userCurrentPointOnCurrentPackge() === 0
+    ) {
+      alert("You don't have enought point to book this session.");
+      return;
+    }
     fetch(
       `${import.meta.env.VITE_HOST_URL}/schedule/add?customer_id=${
         userData.id

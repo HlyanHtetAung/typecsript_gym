@@ -1,5 +1,8 @@
 import { useGetCategories } from '../customHooks';
-import { openCategoryModal } from '../stores/editCategoryModalSlice';
+import {
+  closeCategoryModal,
+  openCategoryModal,
+} from '../stores/editCategoryModalSlice';
 import { useAppDispatch } from '../stores/hooks';
 import { STYLES } from '../styles';
 import DataTable from 'react-data-table-component';

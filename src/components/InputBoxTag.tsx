@@ -2,7 +2,7 @@ import React from 'react';
 
 type inputBoxTagProp = {
   value: string;
-  setValue: (value: string) => void;
+  setValue?: (value: string) => void;
   placholder?: string;
   numberInput?: boolean;
   disableInput?: boolean;
@@ -19,7 +19,7 @@ const InputBoxTag = ({
     <div className="py-[10px] px-[10px] rounded-md bg-secondary">
       <input
         disabled={disableInput}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => (setValue ? setValue(e.target.value) : null)}
         value={value}
         type={numberInput ? 'number' : 'text'}
         className="w-full outline-none bg-transparent text-white"

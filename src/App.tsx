@@ -20,12 +20,17 @@ import Login from './pages/Login';
 import { useAppSelector } from './stores/hooks';
 import ViewMembers from './pages/ViewMembers';
 import ClientProfile from './pages/ClientProfile';
+import ViewBooking from './pages/ViewBooking';
+import ViewCategories from './pages/ViewCategories';
+import EditCategoryModal from './components/EditCategoryModal';
 
 function App() {
   const { userData }: any = useAppSelector((state) => state.currentUser);
-  console.log('useraskldjasdklfj', userData);
+  const editCategory = useAppSelector((state) => state.editCategory);
   return (
-    <div>
+    <div className="relative">
+      {editCategory.openEditCategoryModal && <EditCategoryModal />}
+
       <Navbar />
       <Routes>
         <Route path="/">
@@ -56,6 +61,8 @@ function App() {
           <Route path="createPlan" element={<CreatePlan />} />
           <Route path="createTrainer" element={<CreateTrainer />} />
           <Route path="viewMembers" element={<ViewMembers />} />
+          <Route path="viewBooking" element={<ViewBooking />} />
+          <Route path="viewCategories" element={<ViewCategories />} />
         </Route>
       </Routes>
     </div>

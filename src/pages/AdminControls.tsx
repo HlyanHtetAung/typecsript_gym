@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { STYLES } from "../styles";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { STYLES } from '../styles';
 
 const AdminControls = () => {
   return (
@@ -96,6 +96,14 @@ const AdminControls = () => {
             >
               <h3 className={`${STYLES.adminContorlBtnHeading}`}>
                 View Members
+              </h3>
+            </Link>
+            <Link
+              to="/viewBooking"
+              className={`${STYLES.adminContorlActionBtn}`}
+            >
+              <h3 className={`${STYLES.adminContorlBtnHeading}`}>
+                View Booking
               </h3>
             </Link>
           </div>

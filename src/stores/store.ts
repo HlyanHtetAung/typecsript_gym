@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import userReducer from './userSlice';
+import editCategoryReducer from './editCategoryModalSlice';
 
 export const store = configureStore({
   reducer: {
     currentUser: userReducer,
+    editCategory: editCategoryReducer,
   },
 });
 

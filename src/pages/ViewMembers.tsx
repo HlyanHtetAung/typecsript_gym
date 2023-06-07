@@ -1,7 +1,7 @@
 import { STYLES } from '../styles';
 import { CiSearch } from 'react-icons/ci';
 import InputBoxTag from '../components/InputBoxTag';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ClientCurrentPackages from '../components/ClientCurrentPackages';
 
 const ViewMembers = () => {

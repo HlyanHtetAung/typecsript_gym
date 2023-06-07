@@ -22,11 +22,11 @@ const Navbar = () => {
       }
     };
     window.addEventListener('click', closeMobileNavHandle);
-  return () => window.removeEventListener('click', closeMobileNavHandle);
+    return () => window.removeEventListener('click', closeMobileNavHandle);
   }, []);
 
   return (
-    <nav className="w-full bg-navbarColor sticky top-0 left-0 z-[50]">
+    <nav className="w-full bg-navbarColor sticky top-0 left-0 z-[40]">
       <div
         className={`relative ${STYLES.max_width} ${STYLES.margin_center} ${STYLES.paddingX} h-[70px] flex justify-between items-center`}
       >

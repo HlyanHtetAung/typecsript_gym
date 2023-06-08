@@ -40,6 +40,7 @@ const ClassStatusDetail = () => {
     }
     return null;
   };
+
   const bookClassHandle = (classId: any, dateDay: any, packId: any) => {
     if (
       userCurrentPointOnCurrentPackge() === null ||

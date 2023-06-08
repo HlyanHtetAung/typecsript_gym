@@ -1,8 +1,25 @@
 import { useEffect, useState } from 'react';
 import { STYLES } from '../styles';
+import DataTable, { ExpanderComponentProps } from 'react-data-table-component';
+import BookedPersonsByClass from '../components/BookedPersonsByClass';
 
 const ViewBooking = () => {
   const [bookings, setBookings] = useState<any>([]);
+
+  const columns = [
+    {
+      name: 'Class name',
+      selector: (row: any) => row.class.class_name,
+    },
+    {
+      name: 'Action',
+      selector: (row: any) => (
+        <button className="bg-red-500 py-[6px] px-[10px] rounded-md text-red-900 font-poppins text-[15px]">
+          Edit
+        </button>
+      ),
+    },
+  ];
 
   const fetchBooking = async () => {
     const res = await fetch(
@@ -15,12 +32,19 @@ const ViewBooking = () => {
   useEffect(() => {
     fetchBooking();
   }, []);
-  console.log(bookings);
+
+  const data = bookings.map((bok: any) => bok);
+
   return (
     <div
       className={`${STYLES.max_width} ${STYLES.margin_center} ${STYLES.paddingX} ${STYLES.paddingY}`}
     >
-      <h2 className={`${STYLES.heading2OnBgWhite} my-[10px]`}>Bookings</h2>
+      <DataTable
+        columns={columns}
+        data={data}
+        expandableRows
+        expandableRowsComponent={BookedPersonsByClass}
+      />
     </div>
   );
 };

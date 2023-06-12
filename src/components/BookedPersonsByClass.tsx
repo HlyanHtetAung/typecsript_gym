@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
-import { ExpanderComponentProps } from 'react-data-table-component';
+import { useEffect, useState } from "react";
+import { ExpanderComponentProps } from "react-data-table-component";
 
 const BookedPersonsByClass = ({ data }: any) => {
   const [bookedPersons, setBookedPersons] = useState<any>([]);
 
   useEffect(() => {
-    // console.log(data?.class?.id);
     const fetchBookedPersons = async () => {
       const res = await fetch(
         `${import.meta.env.VITE_HOST_URL}/schedule/booking?class_id=${
@@ -13,12 +12,29 @@ const BookedPersonsByClass = ({ data }: any) => {
         }&date=${data.date}`
       );
       const responseData = await res.json();
-      console.log('responseData', responseData);
+      setBookedPersons(responseData);
+      console.log("responseData", responseData);
     };
 
     fetchBookedPersons();
   }, []);
-  return <div>hello</div>;
+
+  return (
+    <div className="p-[20px] grid grid-cols-3 gap-[20px]">
+      {bookedPersons?.map((bkPerson: any) => (
+        <div className="flex items-center justify-between bg-slate-400 shadow-md px-[7px] py-[5px] rounded-md">
+          <h3 className="text-slate-800 text-[16px] font-semibold">
+            {bkPerson?.customer_id?.name} ({bkPerson?.status})
+          </h3>
+          {bkPerson?.status !== "Booked" ? null : (
+            <button className="bg-slate-700 px-[10px] py-[3px] rounded-md text-[13px] text-white hover:bg-slate-900">
+              Remove
+            </button>
+          )}
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default BookedPersonsByClass;

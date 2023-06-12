@@ -1,21 +1,30 @@
-import { useEffect, useState } from 'react';
-import { STYLES } from '../styles';
-import DataTable, { ExpanderComponentProps } from 'react-data-table-component';
-import BookedPersonsByClass from '../components/BookedPersonsByClass';
+import { useEffect, useState } from "react";
+import { STYLES } from "../styles";
+import DataTable, { ExpanderComponentProps } from "react-data-table-component";
+import BookedPersonsByClass from "../components/BookedPersonsByClass";
 
 const ViewBooking = () => {
   const [bookings, setBookings] = useState<any>([]);
 
   const columns = [
     {
-      name: 'Class name',
+      name: "Class name",
       selector: (row: any) => row.class.class_name,
     },
     {
-      name: 'Action',
+      name: "Booked Date",
+      selector: (row: any) => row.date,
+    },
+    {
+      name: "From time - To Time",
+      selector: (row: any) => `${row.class.from_time}-${row.class.to_time}`,
+    },
+
+    {
+      name: "Action",
       selector: (row: any) => (
         <button className="bg-red-500 py-[6px] px-[10px] rounded-md text-red-900 font-poppins text-[15px]">
-          Edit
+          Cancel Class
         </button>
       ),
     },
